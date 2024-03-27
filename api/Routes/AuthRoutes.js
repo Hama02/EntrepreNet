@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const AuthController = require("../Controllers/authController");
 
-router.post("/register", async (req, res) => {
+router.post("/register", AuthController.register);
+router.post("/login", AuthController.login);
+router.get("/posts", AuthController.protect, (req, res) => {
   return res.status(200).json({
-    status: "success",
-  });
-});
-router.post("/login", async (req, res) => {
-  return res.status(200).json({
-    status: "success",
+    msg: "this is protected route",
   });
 });
 
