@@ -11,7 +11,7 @@ function generateToken(user) {
 }
 
 exports.register = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, accountType } = req.body;
 
   try {
     const checking = await User.findOne({ username });
@@ -23,7 +23,7 @@ exports.register = async (req, res) => {
     } else {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
-      const newUser = new User({ username, email, password: hashedPassword });
+      const newUser = new User({ username, email, password: hashedPassword, accountType });
       await newUser.save();
       return res.status(201).json({ status: "success" });
     }
@@ -31,6 +31,7 @@ exports.register = async (req, res) => {
     return res.status(500).json({ status: "failed", err });
   }
 };
+
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
