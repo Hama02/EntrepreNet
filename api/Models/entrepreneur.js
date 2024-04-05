@@ -1,32 +1,27 @@
 const mongoose = require("mongoose");
 
-const UserSchema = mongoose.Schema(
+const EntrepreneurSchema = mongoose.Schema(
   {
     username: {
       type: String,
       required: true,
       unique: true,
-      min: 3,
-      max: 20,
+      minlength: 3,
+      maxlength: 20
     },
     email: {
       type: String,
       required: true,
-      max: 50,
       unique: true,
+      maxlength: 50
     },
     password: {
       type: String,
       required: true,
-      min: 6,
-    },
-    accountType: {
-      type: String,
-      enum: ['Admin','Investisseur', 'Entrepreneur'],
-      required: true
+      minlength: 6
     }
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("Entrepreneur", EntrepreneurSchema);
