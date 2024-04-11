@@ -2,19 +2,6 @@ const mongoose = require("mongoose");
 
 const PublicationSchema = mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "User",
-    },
-    firstName: {
-      type: String,
-      required: true,
-    },
-    lastName: {
-      type: String,
-      required: true,
-    },
     title: {
       type: String,
       required: true,
@@ -26,7 +13,11 @@ const PublicationSchema = mongoose.Schema(
       maxlength: 1000,
     },
     picturePath: String,
-    userPicturePath: String,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
   },
   { timestamps: true }
 );
