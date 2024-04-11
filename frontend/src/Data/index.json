@@ -1,0 +1,77 @@
+{
+  "skills": [
+    {
+      "id": "1",
+      "src": "./img/management.png",
+      "title": "Account Management",
+      "description": "Effortlessly create and manage accounts on our platform, tailored for entrepreneurs showcasing ideas or investors exploring opportunities."
+    },
+    {
+      "id": "2",
+      "src": "./img/net.png",
+      "title": " Networking",
+      "description": "Unlock networking capabilities on our platform, facilitating meaningful connections, idea exchange, and seamless collaboration opportunities."
+    },
+    {
+      "id": "3",
+      "src": "./img/video.png",
+      "title": "Inspiring Interviews",
+      "description": "Embark on a journey through our curated collection of exclusive interviews, each offering unique insights and compelling success stories that ignite inspiration and motivation within you."
+    },
+    {
+      "id": "4",
+      "src": "./img/success.png",
+      "title": "Success Story Sharing",
+      "description": "Foster collaboration, learning, and growth by sharing success stories, testimonials, and case studies on our platform."
+    }
+  ],
+  "portfolio": [
+    {
+      "id": "1",
+      "src": "./img/img22.png",
+      "title": "Ahuse",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspenmdisse varius eim in eros elementum tristique",
+      "link": "View In Github"
+    },
+    {
+      "id": "2",
+      "src": "./img/placeholder-image-1.png",
+      "title": "App Dashboard",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspenmdisse varius eim in eros elementum tristique",
+      "link": "View In Github"
+    },
+    {
+      "id": "3",
+      "src": "./img/placeholder-image-2.png",
+      "title": "Easy Rentn",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspenmdisse varius eim in eros elementum tristique",
+      "link": "View In Github"
+    }
+  ],
+  "testimonial": [
+    {
+      "id": "1",
+      "count": "5",
+      "src": "./img/avatar-image.png",
+      "description": "Absolutely thrilled with the platform! As an entrepreneur, I've found incredible opportunities and connected with investors who truly believe in my vision. The user-friendly interface and responsive support team make navigating the platform a breeze. Highly recommend! Exceptional platform for entrepreneurial growth and investment opportunities.",
+      "author_name": "Dianne Russel",
+      "author_designation": "Entrepreneur"
+    },
+    {
+      "id": "2",
+      "count": "5",
+      "src": "./img/avatar-image-1.png",
+      "description": "An invaluable resource for investors like myself! The platform offers a diverse range of innovative projects and entrepreneurial talent to explore. I've had the pleasure of discovering promising ventures and collaborating with passionate entrepreneurs. A must-visit for anyone looking to invest in the future.",
+      "author_name": "Kristin Watson",
+      "author_designation": "Investor"
+    },
+    {
+      "id": "3",
+      "count": "5",
+      "src": "./img/avatar-image-2.png",
+      "description": "Overall, a fantastic platform for networking and discovering new opportunities. I've found the interface intuitive and easy to use, and the community engagement has been excellent. However, I would love to see more features for project visibility and outreach to potential investors. Still, highly satisfied with my experience!",
+      "author_name": "Kathryn Murphy",
+      "author_designation": "Entrepreneur"
+    }
+  ]
+}

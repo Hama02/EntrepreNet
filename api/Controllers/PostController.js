@@ -1,76 +1,105 @@
-import Publication from "../Models/publication.js";
-import User from "../Models/user.js";
+const Publication = require("../Models/publication");
+const mongoose = require("mongoose");
 
-export const createPost = async (req, res) => {
+exports.createPost = async (req, res) => {
   try {
-    const { userId, title, description, picturePath } = req.body;
-    const user = await User.findById(userId);
-    const newPost = new Post({
-      userId,
-      firstName: user.firstName,
-      lastName: user.lastName,
+    const { title, description, picturePath } = req.body;
+    const newPost = new Publication({
+      userId: req.user.id,
       title,
       description,
-      userPicturePath: user.picturePath,
       picturePath,
     });
     await newPost.save();
 
-    const post = await Post.find();
-    res.status(201).json(post);
+    return res.status(201).json({
+      status: "success",
+      newPost,
+    });
   } catch (err) {
-    res.status(409).json({ message: err.message });
+    return res.status(500).json({ status: "failed ", msg: err.message });
   }
 };
 
-export const updatePost = async (req, res) => {
+exports.updatePost = async (req, res) => {
   try {
     const { id } = req.params;
-    const { userId, description, title, picturePath } = req.body;
-    const user = await User.findById(userId);
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ status: "failed", msg: "Invalid ID" });
+    }
 
-    const updatedPost = {
-      description,
-      title,
-      picturePath,
-      _id: id,
-    };
+    const { description, title, picturePath } = req.body;
 
-    await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
+    const updatedFields = {};
+    if (description) updatedFields.description = description;
+    if (title) updatedFields.title = title;
+    if (picturePath) updatedFields.picturePath = picturePath;
 
-    res.status(201).json(updatePost);
+    const updatedPost = await Publication.findByIdAndUpdate(id, updatedFields, {
+      new: true,
+    });
+
+    if (!updatedPost) {
+      return res.status(404).json({ status: "failed", msg: "Post not found" });
+    }
+
+    return res.status(200).json({ status: "success", updatedPost });
   } catch (err) {
-    res.status(409).json({ message: err.message });
+    return res.status(500).json({ status: "failed", msg: err.message });
   }
 };
 
-export const deletePost = async (req, res) => {
+exports.deletePost = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ status: "failed", msg: "Invalid ID" });
+    }
 
-    await PostMessage.findByIdAndRemove(id);
+    await Publication.findByIdAndDelete(id);
 
-    res.json({ message: "Post deleted successfully." });
+    return res
+      .status(200)
+      .json({ status: "success", msg: "Post deleted successfully." });
   } catch (err) {
-    res.status(409).json({ message: err.message });
+    return res.status(409).json({ status: "failed", msg: err.message });
   }
 };
 
-export const getFeedPosts = async (req, res) => {
+exports.getFeedPosts = async (req, res) => {
   try {
-    const post = await Post.find();
-    res.status(200).json(post);
-  } catch (err) {
-    res.status(404).json({ message: err.message });
-  }
-};
+    const { id } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
 
-export const getUserPosts = async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const post = await Post.find({ userId });
-    res.status(200).json(post);
+    const offset = (page - 1) * limit;
+    let posts;
+
+    if (id) {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ status: "failed", msg: "Invalid ID" });
+      }
+      posts = await Publication.find({ userId: id })
+        .skip(offset)
+        .limit(limit)
+        .exec();
+    } else {
+      posts = await Publication.find().skip(offset).limit(limit).exec();
+    }
+    if (!posts) {
+      return res.status(404).json({ status: "failed", msg: "User Not Found" });
+    }
+
+    const totalCount = await Publication.countDocuments();
+
+    return res.status(200).json({
+      status: "success",
+      totalPages: Math.ceil(totalCount / limit),
+      currentPage: page,
+      posts,
+    });
   } catch (err) {
-    res.status(404).json({ message: err.message });
+    console.error(err);
+    return res.status(500).json({ status: "failed", msg: "Server Error" });
   }
 };

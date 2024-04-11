@@ -22,9 +22,9 @@ const UserSchema = mongoose.Schema(
     },
     accountType: {
       type: String,
-      enum: ['Admin','Investisseur', 'Entrepreneur'],
-      required: true
-    }
+      enum: ["Admin", "Investisseur", "Entrepreneur"],
+      required: true,
+    },
   },
   { timestamps: true }
 );
