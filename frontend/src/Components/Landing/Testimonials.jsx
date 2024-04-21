@@ -1,4 +1,4 @@
-import data from "../Data/index.json";
+import data from "../../Data/index.json";
 
 export default function Testimonial() {
   return (

@@ -6,7 +6,7 @@
   justify-content: center;
 
   .card {
-    width: 50%;
+    width: 60%;
     display: flex;
     flex-direction: row-reverse;
     background-color: white;
@@ -28,7 +28,7 @@
 
       h1 {
         text-align: center;
-        font-size: 50px;
+        font-size: 30px;
         line-height: 50px;
       }
 
@@ -96,6 +96,7 @@
       h1 {
         color: #555;
         text-align: center;
+        font-size: 40px;
       }
 
       form {
@@ -109,6 +110,35 @@
           padding: 20px 10px;
         }
 
+        select {
+          /* Reset */
+          appearance: none;
+          border: 0;
+          outline: 0;
+          font: inherit;
+          /* Personalize */
+          width: 20rem;
+          padding: 1rem 4rem 1rem 1rem;
+          background: var(--arrow-icon) no-repeat right 0.8em center / 1.4em,
+            linear-gradient(to left, var(--arrow-bg) 3em, var(--select-bg) 3em);
+          color: black;
+          border-radius: 0.25em;
+          box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+          cursor: pointer;
+          /* Remove IE arrow */
+          &::-ms-expand {
+            display: none;
+          }
+          /* Remove focus outline */
+          &:focus {
+            outline: none;
+          }
+          /* <option> colors */
+          option {
+            color: inherit;
+            background-color: var(--option-bg);
+          }
+        }
         button {
           width: 50%;
           padding: 10px;

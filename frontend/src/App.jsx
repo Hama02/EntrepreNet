@@ -1,13 +1,9 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Outlet,
-  Navigate,
-} from "react-router-dom";
-import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Pages/Login/Login";
-import Home from "./Home";
+import Landing from "./Landing";
 import Register from "./Pages/Register/Register";
+import Home from "./Pages/Home/Home";
+import Profile from "./Pages/Profile/Profile";
 
 function App() {
   const ProtectedRoute = ({ children }) => {
@@ -17,17 +13,15 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
+      element: <Landing />,
+    },
+    {
+      path: "/home",
       element: (
         <ProtectedRoute>
           <Home />
         </ProtectedRoute>
       ),
-      children: [
-        {
-          path: "/",
-          element: <>This is Home</>,
-        },
-      ],
     },
     {
       path: "/login",
@@ -36,6 +30,14 @@ function App() {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "/profile",
+      element: (
+        <ProtectedRoute>
+          <Profile />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "*",

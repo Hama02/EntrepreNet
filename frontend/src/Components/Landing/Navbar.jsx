@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-scroll";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [navActive, setNavActive] = useState(false);
@@ -125,7 +125,7 @@ function Navbar() {
           smooth={true}
           offset={-70}
           duration={500}
-          to="Login"
+          to="/login"
           className="btn btn-outline-primary"
         >
           Login

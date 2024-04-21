@@ -6,7 +6,7 @@
   justify-content: center;
 
   .card {
-    width: 50%;
+    width: 70%;
     display: flex;
     background-color: white;
     border-radius: 10px;
@@ -217,6 +217,10 @@
           border: none;
           border-bottom: 1px solid lightgray;
           padding: 20px 10px;
+        }
+        span {
+          color: red;
+          font-size: 13px;
         }
 
         button {

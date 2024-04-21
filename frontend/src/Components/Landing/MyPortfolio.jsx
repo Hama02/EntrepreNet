@@ -121,7 +121,7 @@ export default function MyPortfolio() {
         >
           <i className="fas fa-smile-beam"></i>
           <span className="num">{counters.projectSuccessRate}%</span>
-          <span className="text">Project Success</span>
+          <span className="text">Success Rate</span>
         </div>
         <div
           className="cont"

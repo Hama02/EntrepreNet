@@ -1,8 +1,37 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./login.scss";
+import { useState } from "react";
+import axios from "../../axios";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const navigate = useNavigate();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(
+        "/auth/login",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      setError(false);
+      setErrorMsg("");
+      localStorage.setItem("token", data.token);
+      navigate("/home");
+    } catch (err) {
+      setError(true);
+      setErrorMsg(err.response.data.msg);
+    }
+  };
   return (
     <div className="login">
       <div className="card">
@@ -35,9 +64,18 @@ const Login = () => {
             </div>
           </div>
           <form>
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Password" />
-            <button>Login</button>
+            <input
+              type="text"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {error && <span>{errorMsg}</span>}
+            <button onClick={handleLogin}>Login</button>
           </form>
         </div>
       </div>
