@@ -12,7 +12,10 @@ router.post(
   upload.single("file"),
   PostController.createPost
 );
+router.get("/search", PostController.searchByTitle);
 router.put("/post/:id", AuthController.protect, PostController.updatePost);
 router.get("/:id?", PostController.getFeedPosts);
 router.delete("/post/:id", AuthController.protect, PostController.deletePost);
+router.put("/:id/like", AuthController.protect, PostController.like);
+router.put("/:id/unlike", AuthController.protect, PostController.unlike);
 module.exports = router;

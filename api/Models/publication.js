@@ -18,6 +18,12 @@ const PublicationSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
+    likes: { type: Number, default: 0 },
+    likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    domain: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
