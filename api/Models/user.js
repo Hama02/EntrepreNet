@@ -25,6 +25,10 @@ const UserSchema = mongoose.Schema(
       enum: ["Admin", "Investisseur", "Entrepreneur"],
       required: true,
     },
+    profilePicture: {
+      type: String,
+      default: "uploads/profile.jpg",
+    },
   },
   { timestamps: true }
 );

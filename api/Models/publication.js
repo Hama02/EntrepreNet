@@ -18,12 +18,8 @@ const PublicationSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
-    status:{
-      type: Boolean,
-      required: true
-    },
   },
-    { timestamps: true }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Publication", PublicationSchema);

@@ -30,7 +30,8 @@ exports.register = async (req, res) => {
         accountType,
       });
       await newUser.save();
-      return res.status(201).json({ status: "success" });
+      newUser.password = undefined;
+      return res.status(201).json({ status: "success", newUser });
     }
   } catch (err) {
     return res.status(500).json({ status: "failed", err });
@@ -54,9 +55,11 @@ exports.login = async (req, res) => {
       });
     }
     const token = generateToken(user);
+    user.password = undefined;
     return res.status(200).json({
       status: "success",
       token,
+      user,
     });
   } catch (err) {
     return res.status(500).json({ status: "failed", err });
@@ -64,7 +67,7 @@ exports.login = async (req, res) => {
 };
 
 exports.protect = async (req, res, next) => {
-  const token = req.headers["authorization"].split(" ")[1];
+  const token = req.headers["authorization"]?.split(" ")[1];
   if (!token) {
     return res
       .status(401)

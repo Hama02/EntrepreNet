@@ -4,6 +4,7 @@ import Landing from "./Landing";
 import Register from "./Pages/Register/Register";
 import Home from "./Pages/Home/Home";
 import Profile from "./Pages/Profile/Profile";
+import EditProfile from "./Pages/EditProfile/EditProfile";
 
 function App() {
   const ProtectedRoute = ({ children }) => {
@@ -32,10 +33,14 @@ function App() {
       element: <Register />,
     },
     {
-      path: "/profile",
+      path: "/profile/:id?",
+      element: <Profile />,
+    },
+    {
+      path: "/profile/edit",
       element: (
         <ProtectedRoute>
-          <Profile />
+          <EditProfile />,
         </ProtectedRoute>
       ),
     },

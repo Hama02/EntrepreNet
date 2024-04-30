@@ -4,15 +4,16 @@ export const AuthContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState({
-    id: 1,
-    name: "John Doe",
-    profilePic:
-      "https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  });
+  const initialCurrentUser =
+    JSON.parse(localStorage.getItem("currentUser")) || {};
+  const [currentUser, setCurrentUser] = useState(initialCurrentUser);
+
+  useEffect(() => {
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+  }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser }}>
+    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
       {children}
     </AuthContext.Provider>
   );

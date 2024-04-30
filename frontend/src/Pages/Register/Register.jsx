@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "./register.scss";
 import axios from "../../axios";
 import { useState } from "react";
@@ -10,10 +10,11 @@ const Register = () => {
   const [type, setType] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [error, setError] = useState(false);
+  const [redirect, setRedirect] = useState(false);
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
+      await axios.post(
         "/auth/register",
         {
           username: username,
@@ -27,12 +28,15 @@ const Register = () => {
       );
       setError(false);
       setErrorMsg("");
-      console.log(data);
+      setRedirect(true);
     } catch (err) {
       setError(true);
       setErrorMsg(err.response.data.msg);
     }
   };
+  if (redirect) {
+    return <Navigate to={"/login"} />;
+  }
   return (
     <div className="register">
       <div className="card">

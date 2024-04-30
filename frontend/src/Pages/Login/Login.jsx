@@ -1,14 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Link, useNavigate } from "react-router-dom";
 import "./login.scss";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "../../axios";
+import { AuthContext } from "../../Context/authContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const { setCurrentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,12 +28,15 @@ const Login = () => {
       setError(false);
       setErrorMsg("");
       localStorage.setItem("token", data.token);
+      setCurrentUser(data.user);
       navigate("/home");
     } catch (err) {
       setError(true);
-      setErrorMsg(err.response.data.msg);
+      // setErrorMsg(err.response.data.msg);
+      console.log(err);
     }
   };
+
   return (
     <div className="login">
       <div className="card">
