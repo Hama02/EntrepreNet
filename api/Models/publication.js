@@ -24,6 +24,11 @@ const PublicationSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    type: {
+      type: String,
+      enum: ["offre", "publication"],
+      required: true,
+    },
   },
   { timestamps: true }
 );
