@@ -26,7 +26,7 @@ const PublicationSchema = mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["offre", "publication"],
+      enum: ["offre", "post"],
       required: true,
     },
   },
