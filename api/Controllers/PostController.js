@@ -11,13 +11,14 @@ exports.createPost = async (req, res) => {
     const ext = parts[parts.length - 1];
     const newPath = path + "." + ext;
     fs.renameSync(path, newPath);
-    const { title, description, domain } = req.body;
+    const { title, description, domain, budget } = req.body;
     const newPost = new Publication({
       userId: req.user.id,
       title,
       description,
       picturePath: newPath,
-      domain,
+      domain: domain || undefined,
+      budget: budget || undefined,
     });
     await newPost.save();
 
@@ -93,26 +94,38 @@ exports.getFeedPosts = async (req, res) => {
         ? (posts = await Publication.find({ userId: id, domain }))
             .skip(offset)
             .limit(limit)
-            .populate({ path: "userId", select: "username profilePicture" })
+            .populate({
+              path: "userId",
+              select: "username profilePicture accountType",
+            })
             .exec()
         : (posts = await Publication.find({
             userId: id,
           })
             .skip(offset)
             .limit(limit)
-            .populate({ path: "userId", select: "username profilePicture" })
+            .populate({
+              path: "userId",
+              select: "username profilePicture accountType",
+            })
             .exec());
     } else {
       domain
         ? (posts = await Publication.find({ domain })
             .skip(offset)
             .limit(limit)
-            .populate({ path: "userId", select: "username profilePicture" })
+            .populate({
+              path: "userId",
+              select: "username profilePicture accountType",
+            })
             .exec())
         : (posts = await Publication.find()
             .skip(offset)
             .limit(limit)
-            .populate({ path: "userId", select: "username profilePicture" })
+            .populate({
+              path: "userId",
+              select: "username profilePicture accountType",
+            })
             .exec());
     }
     if (!posts) {

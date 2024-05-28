@@ -12,6 +12,7 @@ import { AuthContext } from "../../../Context/authContext";
 import Modal from "./Modal";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import ChatBox from "../../ChatContainer";
+import { Chip } from "primereact/chip";
 
 const Post = ({ post }) => {
   const { currentUser } = useContext(AuthContext);
@@ -21,7 +22,6 @@ const Post = ({ post }) => {
   const [liked, setLiked] = useState(post?.likedBy.includes(currentUser._id));
   const [reportOpen, setReportOpen] = useState(false);
   const [visible, setVisible] = useState(false);
-
   const handleLike = async () => {
     try {
       await axios.put(`/posts/${post?._id}/like`);
@@ -60,12 +60,15 @@ const Post = ({ post }) => {
   const handleChatToggle = () => {
     setChatOpen(!chatOpen);
   };
-  
+
   return (
     <div className="post">
       <div className="container">
         <div className="top">
           <h3>{post?.title}</h3>
+          {post?.budget !== 0 && (
+            <Chip label={`${post?.budget} TND`} className="chip" />
+          )}
           <button style={{ all: "unset" }} onClick={handleReport}>
             <MoreHorizIcon style={{ cursor: "pointer" }} />
             <div
@@ -109,11 +112,12 @@ const Post = ({ post }) => {
             <TextsmsOutlinedIcon />
             {post?.comments?.length} Comments
           </div>
-          <div className="item" onClick={handleChatToggle}>
-            <ChatOutlinedIcon /> Chat
-            {chatOpen && <ChatBox postName={post?.userId?.username} />}
-          </div>
-
+          {post?.userId?.accountType === "Investisseur" && (
+            <div className="item" onClick={handleChatToggle}>
+              <ChatOutlinedIcon /> Negotiate
+              {chatOpen && <ChatBox postName={post?.userId?.username} />}
+            </div>
+          )}
         </div>
         {commentOpen && <Comments postId={post._id} />}
       </div>
