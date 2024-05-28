@@ -29,6 +29,11 @@ const UserSchema = mongoose.Schema(
       type: String,
       default: "uploads/profile.jpg",
     },
+    status: {
+      type: String,
+      enum: ["notVerified", "verified", "blocked"],
+      default : "notVerified",
+    },
   },
   { timestamps: true }
 );
