@@ -114,7 +114,7 @@ const Post = ({ post }) => {
           </div>
           {post?.userId?.accountType === "Investisseur" && (
             <div className="item" onClick={handleChatToggle}>
-              <ChatOutlinedIcon /> Chat
+              <ChatOutlinedIcon /> Negotiate
               {chatOpen && <ChatBox postName={post?.userId?.username} />}
             </div>
           )}
