@@ -111,7 +111,7 @@ const Post = ({ post }) => {
           </div>
           <div className="item" onClick={handleChatToggle}>
             <ChatOutlinedIcon /> Chat
-            {chatOpen && <ChatBox/>}
+            {chatOpen && <ChatBox postName={post?.userId?.username} />}
           </div>
 
         </div>

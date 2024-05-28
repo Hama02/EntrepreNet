@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ChatContainer.scss';
 
-function ChatBox() {
+function ChatBox({postName}) {
   const [isOpen, setIsOpen] = useState(true);
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -15,11 +15,16 @@ function ChatBox() {
     }
   };
 
+  const handleInputClick = (e) => {
+    // Empêcher la propagation de l'événement de clic
+    e.stopPropagation();
+  };
+
   return (
     isOpen && (
       <div className="chat-box">
         <div className="chat-header">
-          <span>Chat</span>
+          <span>{postName}</span>
           <button onClick={handleClose}>X</button>
         </div>
         <div className="chat-messages">
@@ -35,6 +40,7 @@ function ChatBox() {
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+            onClick={handleInputClick} // Gérer le clic sur la zone de saisie de message
             placeholder="Type your message..."
           />
           <button onClick={handleSendMessage}>Send</button>
