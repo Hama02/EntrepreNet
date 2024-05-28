@@ -22,14 +22,16 @@ const PublicationSchema = mongoose.Schema(
     likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     domain: {
       type: String,
-      required: true,
     },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
-    // type: {
-    //   type: String,
-    //   enum: ["offre", "post"],
-    //   required: true,
-    // },
+    budget: {
+      type: Number,
+    },
+    type: {
+      type: String,
+      enum: ["offre", "post"],
+      required: true,
+    },
   },
   { timestamps: true }
 );

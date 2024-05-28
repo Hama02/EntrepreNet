@@ -15,6 +15,11 @@
       justify-content: space-between;
       position: relative;
 
+      .chip {
+        position: absolute;
+        left: 180px;
+        top: -6px;
+      }
       .report-tab {
         position: absolute;
         right: 0;
