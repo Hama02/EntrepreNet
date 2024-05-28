@@ -1,55 +1,110 @@
+/* eslint-disable react/prop-types */
 import "./post.scss";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
-import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import axios from "../../../axios";
+import { AuthContext } from "../../../Context/authContext";
+import Modal from "./Modal";
 
 const Post = ({ post }) => {
+  const { currentUser } = useContext(AuthContext);
   const [commentOpen, setCommentOpen] = useState(false);
+  const [likes, setLikes] = useState(post?.likes || 0);
+  const [liked, setLiked] = useState(post?.likedBy.includes(currentUser._id));
+  const [reportOpen, setReportOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-  //TEMPORARY
-  const liked = false;
+  const handleLike = async () => {
+    try {
+      await axios.put(`/posts/${post?._id}/like`);
+      setLikes(likes + 1);
+      setLiked(true);
+    } catch (error) {
+      console.error("Error liking post:", error);
+    }
+  };
+
+  const handleUnlike = async () => {
+    try {
+      await axios.put(`/posts/${post?._id}/unlike`);
+      setLikes(likes - 1);
+      setLiked(false);
+    } catch (error) {
+      console.error("Error unliking post:", error);
+    }
+  };
+
+  const handleToggleLike = () => {
+    if (liked) {
+      handleUnlike();
+    } else {
+      handleLike();
+    }
+  };
+
+  const handleModalOpen = () => {
+    setVisible(true);
+  };
+
+  const handleReport = () => {
+    setReportOpen(!reportOpen);
+  };
 
   return (
     <div className="post">
       <div className="container">
-        <div className="user">
+        <div className="top">
+          <h3>{post?.title}</h3>
+          <button style={{ all: "unset" }} onClick={handleReport}>
+            <MoreHorizIcon style={{ cursor: "pointer" }} />
+            <div
+              className="report-tab"
+              style={{ display: `${reportOpen ? "block" : "none"}` }}
+            >
+              <h3 onClick={handleModalOpen}>Report User</h3>
+              <Modal
+                visible={visible}
+                setVisible={setVisible}
+                userId={post.userId._id}
+              />
+            </div>
+          </button>
+        </div>
+        <div className="content">
+          <p>{post?.description}</p>
+          <img src={`http://localhost:8000/${post?.picturePath}`} alt="" />
+        </div>
+        <div className="info">
           <div className="userInfo">
-            <img src={post.profilePic} alt="" />
+            <img
+              src={`http://localhost:8000/${post?.userId.profilePicture}`}
+              alt=""
+            />
             <div className="details">
               <Link
-                to={`/profile/${post.userId}`}
+                to={`/profile/${post?.userId?._id}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <span className="name">{post.name}</span>
+                <span className="name">{post?.userId?.username}</span>
               </Link>
               <span className="date">1 min ago</span>
             </div>
           </div>
-          <MoreHorizIcon />
-        </div>
-        <div className="content">
-          <p>{post.desc}</p>
-          <img src={post.img} alt="" />
-        </div>
-        <div className="info">
-          <div className="item">
+          <div className="item" onClick={handleToggleLike}>
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            12 Likes
+            {likes} Likes
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
-            <TextsmsOutlinedIcon />2 Comments
-          </div>
-          <div className="item">
-            <ShareOutlinedIcon />
-            Share
+            <TextsmsOutlinedIcon />
+            {post?.comments?.length} Comments
           </div>
         </div>
-        {commentOpen && <Comments />}
+        {commentOpen && <Comments postId={post._id} />}
       </div>
     </div>
   );

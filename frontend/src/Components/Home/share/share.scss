@@ -11,22 +11,27 @@
     padding: 20px;
     .top {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: 20px;
-      img {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
+      .title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 11px;
+        img {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
 
-      input {
-        border: none;
-        outline: none;
-        padding: 20px 10px;
-        background-color: transparent;
-        width: 60%;
-        color: black;
+        input {
+          border: none;
+          outline: none;
+          padding: 20px 10px;
+          background-color: transparent;
+          width: 60%;
+          color: black;
+        }
       }
     }
 
@@ -60,16 +65,6 @@
             font-size: 12px;
             color: gray;
           }
-        }
-      }
-      .right {
-        button {
-          border: none;
-          padding: 5px;
-          color: white;
-          cursor: pointer;
-          background-color: #5271ff;
-          border-radius: 3px;
         }
       }
     }

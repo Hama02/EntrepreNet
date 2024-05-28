@@ -1,33 +1,71 @@
+import { useEffect, useState } from "react";
 import Post from "../post/Post";
 import "./posts.scss";
+import axios from "../../../axios";
+import Pagination from "@mui/material/Pagination";
+import { Dropdown } from "primereact/dropdown";
 
 const Posts = () => {
-  //TEMPORARY
-  const posts = [
-    {
-      id: 1,
-      name: "John Doe",
-      userId: 1,
-      profilePic:
-        "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-      img: "https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    },
-    {
-      id: 2,
-      name: "Jane Doe",
-      userId: 2,
-      profilePic:
-        "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      desc: "Tenetur iste voluptates dolorem rem commodi voluptate pariatur, voluptatum, laboriosam consequatur enim nostrum cumque! Maiores a nam non adipisci minima modi tempore.",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [totalPages, setTotalPages] = useState(0);
 
-  return <div className="posts">
-    {posts.map(post=>(
-      <Post post={post} key={post.id}/>
-    ))}
-  </div>;
+  const [loading, setLoading] = useState(false);
+
+  const fetchPosts = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`/posts?page=${page}&limit=${limit}`);
+      setPosts(res.data.posts);
+      setTotalPages(res.data.totalPages);
+    } catch (err) {
+      console.log(err);
+    }
+    setLoading(false);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleLimitChange = (e) => {
+    setLimit(e.value);
+    setPage(1);
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, [page, limit]);
+
+  return (
+    <>
+      {loading ? (
+        <h4>Loading...</h4>
+      ) : (
+        <div className="posts">
+          {posts?.map((p) => (
+            <Post post={p} key={p._id} />
+          ))}
+          <div className="pagination-container">
+            <Pagination
+              style={{ margin: "0 auto" }}
+              count={totalPages}
+              page={page}
+              color="primary"
+              onChange={handleChangePage}
+            />
+            <Dropdown
+              value={limit}
+              onChange={handleLimitChange}
+              options={[5, 10, 15]}
+              placeholder="Select a City"
+              className="dropdown"
+            />
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
-
 export default Posts;

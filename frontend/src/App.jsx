@@ -1,13 +1,29 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+  useLocation,
+} from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import Landing from "./Landing";
 import Register from "./Pages/Register/Register";
 import Home from "./Pages/Home/Home";
 import Profile from "./Pages/Profile/Profile";
 import EditProfile from "./Pages/EditProfile/EditProfile";
+import { AuthContext } from "./Context/authContext";
+import { useContext } from "react";
 
 function App() {
   const ProtectedRoute = ({ children }) => {
+    const { currentUser, isTokenExpired } = useContext(AuthContext);
+    let location = useLocation();
+    if (Object.keys(currentUser).length === 0) {
+      return <Navigate to="/login" state={{ from: location }} replace />;
+    }
+    if (isTokenExpired()) {
+      return <Navigate to="/login" state={{ from: location }} replace />;
+    }
     return children;
   };
 
@@ -34,7 +50,11 @@ function App() {
     },
     {
       path: "/profile/:id?",
-      element: <Profile />,
+      element: (
+        <ProtectedRoute>
+          <Profile />,
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/profile/edit",

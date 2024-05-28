@@ -12,7 +12,8 @@ router.post(
   upload.single("file"),
   PostController.createPost
 );
-router.get("/search", PostController.searchByTitle);
+router.get("/search", AuthController.protect, PostController.searchByTitle);
+router.post("/report", AuthController.protect, PostController.createReport);
 router.put("/post/:id", AuthController.protect, PostController.updatePost);
 router.get("/:id?", PostController.getFeedPosts);
 router.delete("/post/:id", AuthController.protect, PostController.deletePost);

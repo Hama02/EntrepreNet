@@ -12,8 +12,24 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
   }, [currentUser]);
 
+  const isTokenExpired = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return true;
+    }
+    const tokenData = JSON.parse(atob(token.split(".")[1]));
+    const expiryTime = tokenData.exp * 1000;
+    if (Date.now() >= expiryTime) {
+      setCurrentUser({});
+      return true;
+    }
+    return false;
+  };
+
   return (
-    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
+    <AuthContext.Provider
+      value={{ currentUser, setCurrentUser, isTokenExpired }}
+    >
       {children}
     </AuthContext.Provider>
   );

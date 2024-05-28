@@ -19,6 +19,7 @@
       border: 1px solid lightgray;
       background-color: transparent;
       color: black;
+      outline: none;
     }
 
     button {
@@ -36,6 +37,7 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
+    position: relative;
 
     .info {
       flex: 5;
@@ -53,8 +55,14 @@
       }
     }
 
+    .comment-icon {
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      top: -8px;
+    }
+
     .date {
-      flex: 1;
       align-self: center;
       color: gray;
       font-size: 12px;

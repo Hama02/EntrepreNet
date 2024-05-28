@@ -1,42 +1,91 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./comments.scss";
 import { AuthContext } from "../../../Context/authContext";
+import axios from "../../../axios";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { Button } from "primereact/button";
 
-const Comments = () => {
+// eslint-disable-next-line react/prop-types
+const Comments = ({ postId }) => {
   const { currentUser } = useContext(AuthContext);
-  //Temporary
-  const comments = [
-    {
-      id: 1,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam",
-      name: "Iheb",
-      userId: 1,
-      profilePicture:
-        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    },
-    {
-      id: 2,
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam",
-      name: ".",
-      userId: 2,
-      profilePicture:
-        "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    },
-  ];
+  const [commentContent, setCommentContent] = useState("");
+  const [comments, setComments] = useState([]);
+  const [showDelete, setShowDelete] = useState(false);
+
+  const fetchComments = async () => {
+    try {
+      const res = await axios.get(`/comments?post_id=${postId}`);
+      setComments(res.data.comments);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  const handleAddComment = async () => {
+    try {
+      await axios.post("/comments/create", {
+        content: commentContent,
+        postId,
+      });
+      setCommentContent("");
+      fetchComments();
+    } catch (error) {
+      alert("Something went wrong!");
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async (commnetId, postId) => {
+    try {
+      await axios.delete(`/comments/${commnetId}/${postId}`);
+      fetchComments();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className="comments">
       <div className="write">
-        <img src={currentUser.profilePic} alt="" />
-        <input type="text" placeholder="write a comment" />
-        <button>Send</button>
+        <img
+          src={`http://localhost:8000/${currentUser?.profilePicture}`}
+          alt=""
+        />
+        <input
+          type="text"
+          placeholder="write a comment"
+          value={commentContent}
+          onChange={(e) => setCommentContent(e.target.value)}
+        />
+        <button onClick={handleAddComment}>Send</button>
       </div>
-      {comments.map((comment) => (
-        <div className="comment">
-          <img src={comment.profilePicture} alt="" />
+      {comments?.map((comment) => (
+        <div className="comment" key={comment?._id}>
+          <img
+            src={`http://localhost:8000/${comment?.user.profilePicture}`}
+            alt=""
+          />
           <div className="info">
-            <span>{comment.name}</span>
-            <p>{comment.desc}</p>
+            <span>{comment?.user.username}</span>
+            <p>{comment?.content}</p>
           </div>
+          {comment?.user._id === currentUser?._id && (
+            <MoreHorizIcon
+              className="comment-icon"
+              onClick={() => setShowDelete(!showDelete)}
+            />
+          )}
+          {showDelete && (
+            <Button
+              label="Delete"
+              severity="danger"
+              onClick={() => handleDelete(comment?._id, comment?.post?._id)}
+            />
+          )}
+
           <span className="date">1 hour ago</span>
         </div>
       ))}

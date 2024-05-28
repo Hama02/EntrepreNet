@@ -24,11 +24,12 @@ const PublicationSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    type: {
-      type: String,
-      enum: ["offre", "post"],
-      required: true,
-    },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+    // type: {
+    //   type: String,
+    //   enum: ["offre", "post"],
+    //   required: true,
+    // },
   },
   { timestamps: true }
 );

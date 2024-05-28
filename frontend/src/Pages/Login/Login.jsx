@@ -32,8 +32,7 @@ const Login = () => {
       navigate("/home");
     } catch (err) {
       setError(true);
-      // setErrorMsg(err.response.data.msg);
-      console.log(err);
+      setErrorMsg(err.response.data.msg);
     }
   };
 

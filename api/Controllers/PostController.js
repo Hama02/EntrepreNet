@@ -1,20 +1,22 @@
 const Publication = require("../Models/publication");
+const Report = require("../Models/report");
 const mongoose = require("mongoose");
 const fs = require("fs");
+const path = require("path");
 
 exports.createPost = async (req, res) => {
   try {
-    // const { originalname, picturePath } = req.file;
-    // const parts = originalname.split(".");
-    // const ext = parts[parts.length - 1];
-    // const newPath = picturePath + "." + ext;
-    // fs.renameSync(picturePath, newPath);
+    const { originalname, path } = req.file;
+    const parts = originalname.split(".");
+    const ext = parts[parts.length - 1];
+    const newPath = path + "." + ext;
+    fs.renameSync(path, newPath);
     const { title, description, domain } = req.body;
     const newPost = new Publication({
       userId: req.user.id,
       title,
       description,
-      picturePath: "testPath",
+      picturePath: newPath,
       domain,
     });
     await newPost.save();
@@ -91,20 +93,27 @@ exports.getFeedPosts = async (req, res) => {
         ? (posts = await Publication.find({ userId: id, domain }))
             .skip(offset)
             .limit(limit)
+            .populate({ path: "userId", select: "username profilePicture" })
             .exec()
         : (posts = await Publication.find({
             userId: id,
           })
             .skip(offset)
             .limit(limit)
+            .populate({ path: "userId", select: "username profilePicture" })
             .exec());
     } else {
       domain
         ? (posts = await Publication.find({ domain })
             .skip(offset)
             .limit(limit)
+            .populate({ path: "userId", select: "username profilePicture" })
             .exec())
-        : (posts = await Publication.find().skip(offset).limit(limit).exec());
+        : (posts = await Publication.find()
+            .skip(offset)
+            .limit(limit)
+            .populate({ path: "userId", select: "username profilePicture" })
+            .exec());
     }
     if (!posts) {
       return res.status(404).json({ status: "failed", msg: "User Not Found" });
@@ -114,6 +123,7 @@ exports.getFeedPosts = async (req, res) => {
 
     return res.status(200).json({
       status: "success",
+      totalPosts: totalCount,
       totalPages: Math.ceil(totalCount / limit),
       currentPage: page,
       posts,
@@ -133,7 +143,6 @@ exports.like = async (req, res) => {
       { $inc: { likes: 1 }, $push: { likedBy: userId } },
       { new: true }
     );
-
     if (!post) {
       return res
         .status(400)
@@ -173,14 +182,26 @@ exports.unlike = async (req, res) => {
 
 exports.searchByTitle = async (req, res) => {
   try {
-    const { title, limit } = req.query;
+    const { title } = req.query;
     const decodedTitle = title.replace(/_/g, " ");
     const posts = await Publication.find({
       title: { $regex: decodedTitle, $options: "i" },
-    }).limit(parseInt(limit));
+    }).limit(5);
 
     return res.status(200).json({ status: "success", posts });
   } catch (error) {
     return res.status(500).json({ status: "failed", msg: error.message });
+  }
+};
+
+exports.createReport = async (req, res) => {
+  try {
+    const newReport = await Report.create({
+      reportedBy: req.user.id,
+      reportedUser: req.body.reportedUser,
+    });
+    res.status(201).json(newReport);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
