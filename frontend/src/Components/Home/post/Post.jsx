@@ -10,10 +10,13 @@ import { useContext, useState } from "react";
 import axios from "../../../axios";
 import { AuthContext } from "../../../Context/authContext";
 import Modal from "./Modal";
+import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
+import ChatBox from "../../ChatContainer";
 
 const Post = ({ post }) => {
   const { currentUser } = useContext(AuthContext);
   const [commentOpen, setCommentOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
   const [likes, setLikes] = useState(post?.likes || 0);
   const [liked, setLiked] = useState(post?.likedBy.includes(currentUser._id));
   const [reportOpen, setReportOpen] = useState(false);
@@ -54,7 +57,10 @@ const Post = ({ post }) => {
   const handleReport = () => {
     setReportOpen(!reportOpen);
   };
-
+  const handleChatToggle = () => {
+    setChatOpen(!chatOpen);
+  };
+  
   return (
     <div className="post">
       <div className="container">
@@ -103,6 +109,11 @@ const Post = ({ post }) => {
             <TextsmsOutlinedIcon />
             {post?.comments?.length} Comments
           </div>
+          <div className="item" onClick={handleChatToggle}>
+            <ChatOutlinedIcon /> Chat
+            {chatOpen && <ChatBox/>}
+          </div>
+
         </div>
         {commentOpen && <Comments postId={post._id} />}
       </div>
