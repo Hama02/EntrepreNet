@@ -57,7 +57,8 @@ const Share = () => {
     data.set("domain", domain.name);
     data.set("file", file[0]);
     data.set("budget", budget);
-    data.set("type", `${accountType === "Investisseur" ? "offre" : "post"}`);
+    const type = accountType === "Investisseur" ? "offre" : "post";
+    data.set("type", type);
     setLoading(true);
     try {
       const res = await fetch("http://localhost:8000/api/v1/posts/post", {

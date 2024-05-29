@@ -11,7 +11,7 @@ exports.createPost = async (req, res) => {
     const ext = parts[parts.length - 1];
     const newPath = path + "." + ext;
     fs.renameSync(path, newPath);
-    const { title, description, domain, budget } = req.body;
+    const { title, description, domain, budget, type } = req.body;
     const newPost = new Publication({
       userId: req.user.id,
       title,
@@ -19,6 +19,7 @@ exports.createPost = async (req, res) => {
       picturePath: newPath,
       domain: domain || undefined,
       budget: budget || undefined,
+      type,
     });
     await newPost.save();
 
@@ -27,6 +28,7 @@ exports.createPost = async (req, res) => {
       newPost,
     });
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ status: "failed ", msg: err.message });
   }
 };
