@@ -84,62 +84,45 @@ exports.getFeedPosts = async (req, res) => {
     const { domain } = req.query;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-
     const offset = (page - 1) * limit;
-    let posts;
 
+    let query = {};
     if (id) {
       if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({ status: "failed", msg: "Invalid ID" });
       }
-      domain
-        ? (posts = await Publication.find({ userId: id, domain }))
-            .skip(offset)
-            .limit(limit)
-            .populate({
-              path: "userId",
-              select: "username profilePicture accountType",
-            })
-            .exec()
-        : (posts = await Publication.find({
-            userId: id,
-          })
-            .skip(offset)
-            .limit(limit)
-            .populate({
-              path: "userId",
-              select: "username profilePicture accountType",
-            })
-            .exec());
-    } else {
-      domain
-        ? (posts = await Publication.find({ domain })
-            .skip(offset)
-            .limit(limit)
-            .populate({
-              path: "userId",
-              select: "username profilePicture accountType",
-            })
-            .exec())
-        : (posts = await Publication.find()
-            .skip(offset)
-            .limit(limit)
-            .populate({
-              path: "userId",
-              select: "username profilePicture accountType",
-            })
-            .exec());
+      query.userId = id;
     }
-    if (!posts) {
-      return res.status(404).json({ status: "failed", msg: "User Not Found" });
+    if (domain) {
+      query.domain = domain;
     }
 
-    const totalCount = await Publication.countDocuments();
+    const postsPromise = Publication.find(query)
+      .skip(offset)
+      .limit(limit)
+      .populate({
+        path: "userId",
+        select: "username profilePicture accountType",
+      })
+      .exec();
+
+    const totalCountPromise = Publication.countDocuments(query).exec();
+
+    const [posts, totalCount] = await Promise.all([
+      postsPromise,
+      totalCountPromise,
+    ]);
+
+    if (!posts || posts.length === 0) {
+      return res.status(404).json({ status: "failed", msg: "No posts found" });
+    }
+
+    const totalPages = totalCount > 0 ? Math.ceil(totalCount / limit) : 1;
 
     return res.status(200).json({
       status: "success",
       totalPosts: totalCount,
-      totalPages: Math.ceil(totalCount / limit),
+      totalPages,
       currentPage: page,
       posts,
     });

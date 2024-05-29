@@ -18,7 +18,7 @@ const Posts = ({ domain }) => {
     try {
       const url =
         domain !== ""
-          ? `/posts?page=${page}&limit=${limit}&domain=${domain}`
+          ? `/posts?page=${page}&limit=${limit}&domain=${domain.name}`
           : `/posts?page=${page}&limit=${limit}`;
       const res = await axios.get(url);
       setPosts(res.data.posts);
