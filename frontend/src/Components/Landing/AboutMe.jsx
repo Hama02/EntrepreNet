@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 export default function AboutMe() {
   return (
     <section id="AboutMe" className="about--section">
@@ -9,16 +8,16 @@ export default function AboutMe() {
         <div className="hero--section--content">
           <h1 className="skills-section--heading">About Us</h1>
           <p className="hero--section-description">
-            <u>Welcome to EntrepreNet</u> - where connections thrive, ideas
+            Welcome to <b> EntrepreNet </b> where connections thrive, ideas
             flourish, and success awaits. We're dedicated to fostering
             meaningful engagements within the entrepreneurial and investment
             community.
           </p>
           <p className="hero--section-description">
-            Our mission is simple: to fuel growth, innovation, and success by
-            providing the tools and support entrepreneurs and investors need to
-            thrive.
-            <u>Join us</u> and let's make deals happen and futures bright.
+            Our mission is to fuel growth, innovate, and provide the tools to
+            support entrepreneurs and investors to thrive.
+            <strong> Join us</strong> and let's make deals happen and futures
+            bright.
           </p>
         </div>
       </div>

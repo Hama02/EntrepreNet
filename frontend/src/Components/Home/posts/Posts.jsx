@@ -5,7 +5,7 @@ import axios from "../../../axios";
 import Pagination from "@mui/material/Pagination";
 import { Dropdown } from "primereact/dropdown";
 
-const Posts = () => {
+const Posts = ({ domain }) => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
@@ -16,7 +16,11 @@ const Posts = () => {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`/posts?page=${page}&limit=${limit}`);
+      const url =
+        domain !== ""
+          ? `/posts?page=${page}&limit=${limit}&domain=${domain}`
+          : `/posts?page=${page}&limit=${limit}`;
+      const res = await axios.get(url);
       setPosts(res.data.posts);
       setTotalPages(res.data.totalPages);
     } catch (err) {
@@ -36,7 +40,7 @@ const Posts = () => {
 
   useEffect(() => {
     fetchPosts();
-  }, [page, limit]);
+  }, [page, limit, domain]);
 
   return (
     <>

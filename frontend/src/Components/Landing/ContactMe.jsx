@@ -1,12 +1,14 @@
 export default function ContactMe() {
   return (
     <section id="Contact" className="contact--section">
+      <div className="about--section--img">
+        <img src="./img/contact.png" alt="Contact Us" />
+      </div>
+
       <div>
-        <p className="sub--title">Get In Touch</p>
-        <h2>Contact Us</h2>
-        <p className="text-lg">
-          Contact us for inquiries, assistance, or collaborations!
-        </p>
+        <p className="sub--title space-between">Get In Touch</p>
+
+        <h2 className="text-lg">Leave us a word about your project!</h2>
       </div>
       <form className="contact--form--container">
         <div className="container">

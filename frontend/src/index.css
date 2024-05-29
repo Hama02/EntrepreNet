@@ -1,3 +1,5 @@
+/* Global CSS */
+
 body {
   margin: 0;
   font-family: "Roboto", sans-serif;
@@ -27,7 +29,7 @@ p {
 }
 
 .btn {
-  font-family: "Roboto";
+  font-family: Arial, Helvetica, sans-serif;
   display: inline-block;
   padding: 14px 32px;
   font-size: 16px;
@@ -116,10 +118,11 @@ h2 {
 /* Body 1 */
 .text-lg {
   color: var(--darkblue);
-  font-size: 18px;
+  font-size: 30px;
   font-style: normal;
   font-weight: 400;
   line-height: 27px;
+  color: gray;
 }
 
 /* Body 2 */
@@ -127,8 +130,11 @@ h2 {
   color: var(--darkblue);
   font-size: 16px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: bold;
   line-height: 24px;
+  font-family: "Ubuntu";
+
+
 }
 
 /* Body 3 */
@@ -138,6 +144,7 @@ h2 {
   font-style: normal;
   font-weight: 400;
   line-height: 21px;
+
 }
 
 /* Section Titles */
@@ -156,9 +163,17 @@ h2 {
 /* Portfolio, Testimonial & Contact Me */
 .sub--title {
   color: var(--heading-color);
-  font-size: 16px;
+  font-size: 40px;
   font-weight: 600;
   line-height: 24px;
+  font-family: "Poetsen One";
+  color: #006b6a;
+
+}
+
+.space-between {
+  margin-bottom: 20px;
+  /* Adjust the value to get the desired space */
 }
 
 /* Section Titles Ends */
@@ -166,15 +181,13 @@ h2 {
 /* Navbar Style Start */
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  /* Center the navbar items */
   align-items: center;
-  padding: 50px 60.333px !important;
-  background: var(--white);
-  box-shadow: 0px 5.333px 80px 0 rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #fff;
+  /* Ensure background color contrasts with text */
 }
 
 .navbar--items>ul {
@@ -191,21 +204,35 @@ h2 {
 
 /* Navbar Content */
 .navbar--content {
+  margin: 0 15px;
+  /* Add space between items */
   color: var(--darkblue);
-  font-size: 16px;
+  font-size: 20px;
+  /* Adjust font size for better fit */
   font-style: normal;
   font-weight: 400;
-  line-height: 24px;
   cursor: pointer;
+  color: #000000;
+  transition: all 0.3s ease;
+  /* Smooth transition for all properties */
+  font-family: "Poetsen One", sans-serif;
 }
 
 .navbar--content:hover {
-  font-size: 1.1em;
-  text-decoration: underline;
+  font-size: 22px;
+  /* Slightly increase font size on hover */
+  font-weight: bold;
+  /* Bold font on hover */
+  color: #004f4e;
+  /* Darker color on hover */
 }
 
-.navbar--active-content {
-  color: var(--primary);
+.navbar--content.active {
+  font-weight: bold;
+  color: #004f4e;
+  /* Darker color for active item */
+  border-bottom: 2px solid #004f4e;
+  /* Underline active item */
 }
 
 .button-container {
@@ -250,6 +277,7 @@ h2 {
   font-size: 74.667px;
   font-weight: 700;
   line-height: 90px;
+  font-family: "Poetsen One";
   align-self: stretch;
 }
 
@@ -286,10 +314,12 @@ h2 {
 }
 
 .skills--section--heading {
-  color: var(--heading-color);
+  color: #006b6a;
   font-size: 64px;
   font-weight: 700;
   line-height: 77px;
+  font-family: "Poetsen One";
+
 }
 
 .skills--section--container {
@@ -365,9 +395,23 @@ h2 {
   grid-template-columns: repeat(2, 1fr);
 }
 
+.contact--section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.about--section h1 {
+  font-family: "Poetsen One";
+  color: #006b6a;
+
+}
+
 .about--section--img>img {
   width: 100%;
   height: 100%;
+
 }
 
 /* About Us Ends */
@@ -465,6 +509,8 @@ h2 {
 
 .sections--heading {
   color: var(--heading-color);
+  font-family: "Poetsen One";
+  color: #006b6a;
 }
 
 .testimonial--section--card {
@@ -823,7 +869,7 @@ input[type="checkbox"] {
     align-items: center;
     justify-content: center;
     background-color: rgba(255, 255, 255);
-    top: -20rem;
+    top: -30rem;
     left: 0;
     width: 100%;
     transition: all ease-in-out 0.4s;

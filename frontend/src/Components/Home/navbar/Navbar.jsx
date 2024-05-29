@@ -5,14 +5,22 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../Context/authContext";
+import { Dropdown } from "primereact/dropdown";
 import axios from "../../../axios";
 
-const Navbar = () => {
+const Navbar = ({ domain, setDomain }) => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [show, setShow] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
+  const domains = [
+    { name: "Test domain1" },
+    { name: "Test domain2" },
+    { name: "Test domain3" },
+    { name: "Test domain4" },
+    { name: "sport" },
+  ];
 
   const handleLogout = () => {
     setCurrentUser({});
@@ -53,6 +61,16 @@ const Navbar = () => {
                 <h2>{result.title}</h2>
               </div>
             ))}
+          </div>
+          <div className="item">
+            <Dropdown
+              value={domain}
+              onChange={(e) => setDomain(e.value)}
+              options={domains}
+              optionLabel="name"
+              placeholder="Select a Domain"
+              className="w-full md:w-14rem"
+            />
           </div>
         </div>
       </div>
