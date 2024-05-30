@@ -13,6 +13,7 @@ import Modal from "./Modal";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import ChatBox from "../../ChatContainer";
 import { Chip } from "primereact/chip";
+import { Button } from "primereact/button";
 
 const Post = ({ post }) => {
   const { currentUser } = useContext(AuthContext);
@@ -21,6 +22,7 @@ const Post = ({ post }) => {
   const [likes, setLikes] = useState(post?.likes || 0);
   const [liked, setLiked] = useState(post?.likedBy.includes(currentUser._id));
   const [reportOpen, setReportOpen] = useState(false);
+  const [toggleDelete, setToggleDelete] = useState(false);
   const [visible, setVisible] = useState(false);
   const handleLike = async () => {
     try {
@@ -57,6 +59,9 @@ const Post = ({ post }) => {
   const handleReport = () => {
     setReportOpen(!reportOpen);
   };
+  const handleDelete = () => {
+    setToggleDelete(!toggleDelete);
+  };
   const handleChatToggle = () => {
     setChatOpen(!chatOpen);
   };
@@ -69,19 +74,30 @@ const Post = ({ post }) => {
           {post?.budget !== 0 && (
             <Chip label={`${post?.budget} TND`} className="chip" />
           )}
-          <button style={{ all: "unset" }} onClick={handleReport}>
+          <button
+            style={{ all: "unset" }}
+            onClick={
+              currentUser._id !== post.userId._id ? handleReport : handleDelete
+            }
+          >
             <MoreHorizIcon style={{ cursor: "pointer" }} />
-            <div
-              className="report-tab"
-              style={{ display: `${reportOpen ? "block" : "none"}` }}
-            >
-              <h3 onClick={handleModalOpen}>Report User</h3>
-              <Modal
-                visible={visible}
-                setVisible={setVisible}
-                userId={post.userId._id}
-              />
-            </div>
+            {currentUser &&
+            post?.userId &&
+            currentUser._id !== post.userId._id ? (
+              <div
+                className="report-tab"
+                style={{ display: reportOpen ? "block" : "none" }}
+              >
+                <h3 onClick={handleModalOpen}>Report User</h3>
+                <Modal
+                  visible={visible}
+                  setVisible={setVisible}
+                  userId={post.userId._id}
+                />
+              </div>
+            ) : (
+              toggleDelete && <Button label="Delete Post" />
+            )}
           </button>
         </div>
         <div className="content">

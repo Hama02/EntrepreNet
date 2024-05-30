@@ -78,3 +78,31 @@ exports.changePass = async (req, res) => {
     return res.status(500).json({ status: "failed", err });
   }
 };
+
+exports.deleteUser = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    if (req.user.id !== userId) {
+      return res.status(403).json({
+        status: "failed",
+        msg: "You can only delete your own account!",
+      });
+    }
+
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+      return res.status(404).json({
+        status: "failed",
+        msg: "User not found!",
+      });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      msg: "User deleted successfully",
+    });
+  } catch (err) {
+    return res.status(500).json({ status: "failed", err });
+  }
+};
