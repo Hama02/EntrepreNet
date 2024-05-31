@@ -627,6 +627,7 @@ h2 {
 }
 
 .portfolio--section--title {
+  text-align: center;
   color: var(--heading-color);
 }
 
@@ -634,7 +635,7 @@ h2 {
   text-decoration: none;
   display: flex;
   gap: 16px;
-  border-bottom: 1.33px solid var(--primary);
+  border-bottom: 2px solid var(--primary);
   padding-bottom: 10.6px;
   font-weight: 600;
 }
