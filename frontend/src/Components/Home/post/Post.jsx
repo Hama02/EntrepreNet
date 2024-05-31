@@ -77,13 +77,15 @@ const Post = ({ post }) => {
           <button
             style={{ all: "unset" }}
             onClick={
-              currentUser._id !== post.userId._id ? handleReport : handleDelete
+              currentUser?._id !== post?.userId?._id
+                ? handleReport
+                : handleDelete
             }
           >
             <MoreHorizIcon style={{ cursor: "pointer" }} />
             {currentUser &&
             post?.userId &&
-            currentUser._id !== post.userId._id ? (
+            currentUser?._id !== post?.userId?._id ? (
               <div
                 className="report-tab"
                 style={{ display: reportOpen ? "block" : "none" }}
@@ -107,7 +109,7 @@ const Post = ({ post }) => {
         <div className="info">
           <div className="userInfo">
             <img
-              src={`http://localhost:8000/${post?.userId.profilePicture}`}
+              src={`http://localhost:8000/${post?.userId?.profilePicture}`}
               alt=""
             />
             <div className="details">
