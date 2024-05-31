@@ -1,58 +1,75 @@
 .login {
   height: 100vh;
-  background-color: rgb(193, 190, 255);
+  background-color: rgb(172, 190, 182);
   display: flex;
   align-items: center;
   justify-content: center;
 
   .card {
-    width: 70%;
+    min-width: 80%;
+    max-width: 1200px;
     display: flex;
     background-color: white;
     border-radius: 10px;
     min-height: 600px;
     overflow: hidden;
+    box-shadow: 0 10px 20px rgba(27, 27, 27, 0.1);
 
-    .left {
+    .left,
+    .right {
       flex: 1;
-      background: linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)),
-        url("https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600")
-          center;
-      background-size: cover;
-      padding: 50px;
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      justify-content: center;
+      align-items: center;
+      padding: 50px;
+    }
+
+    .left {
+      background: linear-gradient(rgba(64, 117, 79, 0.5), rgba(39, 11, 96, 0.5)),
+        url("https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600") center/cover;
       color: white;
+      text-align: center;
 
       h1 {
-        font-size: 50px;
-        line-height: 50px;
-        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+
+        span {
+          display: block;
+        }
       }
 
       p {
-        font-size: 18px;
+        font-size: 1.125rem;
+        margin-bottom: 20px;
       }
 
       span {
-        font-size: 14px;
+        font-size: 0.875rem;
+        margin-bottom: 20px;
       }
 
       button {
-        width: 50%;
+        width: 340%;
         padding: 10px;
         border: none;
         background-color: white;
-        color: rebeccapurple;
+        color: #506a39;
         font-weight: bold;
         cursor: pointer;
         text-transform: uppercase;
-        text-decoration: none;
-        display: inline-block;
+        text-align: center;
         transition: all 0.2s;
         position: relative;
         border-radius: 1000px;
+        display:inline-block;
+        align-items: center;
+        justify-content: center;
+        text-decoration-line:unset;
+        margin-top: 10px; 
+        margin-bottom: 20px;
+        margin-left: -110%;
       }
 
       button:hover {
@@ -85,26 +102,29 @@
     }
 
     .right {
-      flex: 1;
-      padding: 50px;
+      margin-top: 90px;
       display: flex;
       flex-direction: column;
-      gap: 50px;
       justify-content: center;
-
+      align-items: center;
+      
       .container {
-        width: 370px;
+        width: 100%;
+        max-width: 370px;
         height: 50px;
       }
 
       .content {
         display: block;
-        position: sticky;
+        position: relative;
         overflow: hidden;
         font-family: "Lato", sans-serif;
-        font-size: 35px;
+        font-size: 2.5rem;
         line-height: 40px;
         color: black;
+        text-align: center;
+        margin: -60px;
+
       }
 
       .content__container {
@@ -112,32 +132,30 @@
         overflow: hidden;
         height: 40px;
         padding: 0 40px;
+        position: relative;
+        padding-left: 105px;
       }
 
       .content__container:before {
         content: "[";
+        position: absolute;
         left: 0;
+        top: -2px;
+        color: #506a39;
+        font-size: 42px;
+        line-height: 40px;
+        animation: opacity 2s infinite;
       }
 
       .content__container:after {
         content: "]";
         position: absolute;
         right: 0;
-      }
-
-      .content__container:after,
-      .content__container:before {
-        position: absolute;
         top: -2px;
-        color: rebeccapurple;
+        color: #506a39;
         font-size: 42px;
         line-height: 40px;
-        -webkit-animation-name: opacity;
-        -webkit-animation-duration: 2s;
-        -webkit-animation-iteration-count: infinite;
-        animation-name: opacity;
-        animation-duration: 2s;
-        animation-iteration-count: infinite;
+        animation: opacity 2s infinite;
       }
 
       .content__container__text {
@@ -151,12 +169,7 @@
         padding-left: 110px;
         text-align: left;
         list-style: none;
-        -webkit-animation-name: change;
-        -webkit-animation-duration: 10s;
-        -webkit-animation-iteration-count: infinite;
-        animation-name: change;
-        animation-duration: 10s;
-        animation-iteration-count: infinite;
+        animation: change 10s infinite;
       }
 
       .content__container__list__item {
@@ -211,7 +224,9 @@
       form {
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: 20px;
+        width: 100%;
+        max-width: 370px;
 
         input {
           border: none;
@@ -219,25 +234,27 @@
           padding: 20px 10px;
           outline: none;
         }
+
         span {
           color: red;
           font-size: 13px;
         }
 
         button {
-          width: 50%;
+          width: 80%;
           padding: 10px;
           border: none;
-          background-color: #938eef;
+          background-color: #506a39;
           color: white;
           font-weight: bold;
           cursor: pointer;
           text-transform: uppercase;
           text-decoration: none;
-          display: inline-block;
+          display: block; 
           transition: all 0.2s;
           position: relative;
           border-radius: 1000px;
+          margin: 0 auto;
         }
 
         button:hover {
