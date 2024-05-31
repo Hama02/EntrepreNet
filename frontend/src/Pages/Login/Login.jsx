@@ -60,7 +60,7 @@ const Login = () => {
                   <li className="content__container__list__item">innovate</li>
                   <li className="content__container__list__item">invest</li>
                   <li className="content__container__list__item">
-                    collaborate
+                    team up
                   </li>
                   <li className="content__container__list__item">succeed</li>
                 </ul>
