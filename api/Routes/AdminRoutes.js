@@ -8,6 +8,7 @@ router.use(authController.protect);
 router.use(authController.restrictTo("Admin"));
 
 router.get("/users", adminController.getAllUsers);
+router.get("/posts", adminController.getAllPosts);
 router.delete("/users/:userId", adminController.deleteUser);
 router.patch("/users/:userId/verify", adminController.verifyUser);
 router.patch("/users/:userId/block", adminController.blockUser);
