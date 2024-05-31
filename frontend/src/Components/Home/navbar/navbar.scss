@@ -1,15 +1,14 @@
 .navbar {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
-  height: 74px;
-  border-bottom: 1px solid lightgray;
-  position: sticky;
+  align-items: center;
+  padding: 15px 85.333px;
+  background: rgb(236, 243, 240);
+  box-shadow: 0px 5.333px 80px 0 rgba(0, 0, 0, 0.1);
+  position: fixed;
   top: 0;
-
-  background-color: white;
-  color: black;
+  left: 0;
+  right: 0;
   z-index: 999;
 
   .left {
