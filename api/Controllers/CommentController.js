@@ -58,3 +58,29 @@ exports.deleteComment = async (req, res) => {
     res.status(500).json({ status: "error", message: error.message });
   }
 };
+
+// exports.reportComment = async (req, res) => {
+//   const { commentId } = req.params;
+//   const { reason } = req.body;
+
+//   try {
+//     const comment = await Comment.findById(commentId);
+//     if (!comment) {
+//       return res.status(404).json({
+//         status: "failed",
+//         msg: "Comment not found!",
+//       });
+//     }
+
+//     comment.status = "reported";
+//     comment.reportReason = reason;
+//     await comment.save();
+
+//     return res.status(200).json({
+//       status: "success",
+//       msg: "Comment reported successfully",
+//     });
+//   } catch (err) {
+//     return res.status(500).json({ status: "failed", err });
+//   }
+// };

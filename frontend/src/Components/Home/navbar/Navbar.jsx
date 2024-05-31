@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import "./navbar.scss";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";

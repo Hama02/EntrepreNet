@@ -194,6 +194,11 @@ exports.searchByTitle = async (req, res) => {
 
 exports.createReport = async (req, res) => {
   try {
+    await User.findByIdAndUpdate(
+      req.user.id,
+      { $inc: { reportCount: 1 } },
+      { new: true }
+    );
     const newReport = await Report.create({
       reportedBy: req.user.id,
       reportedUser: req.body.reportedUser,
