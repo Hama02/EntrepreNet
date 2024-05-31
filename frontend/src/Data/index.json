@@ -2,27 +2,27 @@
   "skills": [
     {
       "id": "1",
-      "src": "./img/management.png",
+      "src": "./img/management-consulting.gif",
       "title": "Account Management",
-      "description": "Effortlessly create and manage accounts on our platform, tailored for entrepreneurs showcasing ideas or investors exploring opportunities."
+      "description": "Effortlessly create and manage accounts on our platform, tailored for entrepreneurs showcasing ideas or investors exploring opportunities, ensuring smooth and efficient interactions."
     },
     {
       "id": "2",
-      "src": "./img/net.png",
+      "src": "./img/organigram.gif",
       "title": " Networking",
-      "description": "Unlock networking capabilities on our platform, facilitating meaningful connections, idea exchange, and seamless collaboration opportunities."
+      "description": "Unlock networking capabilities on our platform, facilitating meaningful connections, idea exchange, and seamless collaboration opportunities, driving impactful business growth."
     },
     {
       "id": "3",
-      "src": "./img/video.png",
-      "title": "Inspiring Interviews",
-      "description": "Embark on a journey through our curated collection of exclusive interviews, each offering unique insights and compelling success stories that ignite inspiration and motivation within you."
+      "src": "./img/hired.gif",
+      "title": "Investing",
+      "description": "Explore diverse investment opportunities through our platform, including grants and investor pitches designed to help entrepreneurs secure the capital they need, fostering financial growth"
     },
     {
       "id": "4",
-      "src": "./img/success.png",
+      "src": "./img/success.gif",
       "title": "Success Story Sharing",
-      "description": "Foster collaboration, learning, and growth by sharing success stories, testimonials, and case studies on our platform."
+      "description": "Foster collaboration, learning, and growth by sharing success stories, testimonials, and case studies on our platform, helping users connect and achieve their goals through shared experiences."
     }
   ],
   "portfolio": [
@@ -53,7 +53,7 @@
       "id": "1",
       "count": "5",
       "src": "./img/avatar-image.png",
-      "description": "Absolutely thrilled with the platform! As an entrepreneur, I've found incredible opportunities and connected with investors who truly believe in my vision. The user-friendly interface and responsive support team make navigating the platform a breeze. Highly recommend! Exceptional platform for entrepreneurial growth and investment opportunities.",
+      "description": "Thrilled with the platform! As an entrepreneur, I've found incredible opportunities and connected with supportive investors. The user-friendly interface makes navigation easy. Highly recommend for entrepreneurial growth and investment.",
       "author_name": "Dianne Russel",
       "author_designation": "Entrepreneur"
     },
@@ -61,7 +61,7 @@
       "id": "2",
       "count": "5",
       "src": "./img/avatar-image-1.png",
-      "description": "An invaluable resource for investors like myself! The platform offers a diverse range of innovative projects and entrepreneurial talent to explore. I've had the pleasure of discovering promising ventures and collaborating with passionate entrepreneurs. A must-visit for anyone looking to invest in the future.",
+      "description": "A valuable resource for investors! The platform offers innovative projects and entrepreneurial talent. I've enjoyed discovering ventures and collaborating with passionate entrepreneurs. A must-visit for future investments.",
       "author_name": "Kristin Watson",
       "author_designation": "Investor"
     },
@@ -69,7 +69,7 @@
       "id": "3",
       "count": "5",
       "src": "./img/avatar-image-2.png",
-      "description": "Overall, a fantastic platform for networking and discovering new opportunities. I've found the interface intuitive and easy to use, and the community engagement has been excellent. However, I would love to see more features for project visibility and outreach to potential investors. Still, highly satisfied with my experience!",
+      "description": "A fantastic platform for networking and finding new opportunities. The interface is intuitive, and community engagement is excellent, fostering meaningful connections and collaborations. Highly satisfied with my enriching experience!",
       "author_name": "Kathryn Murphy",
       "author_designation": "Entrepreneur"
     }
