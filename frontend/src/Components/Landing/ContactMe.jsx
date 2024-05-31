@@ -2,13 +2,13 @@ export default function ContactMe() {
   return (
     <section id="Contact" className="contact--section">
       <div className="about--section--img">
-        <img src="./img/contact.png" alt="Contact Us" />
+        <img src="./img/contact us image.jpg" alt="Contact Us" />
       </div>
 
       <div>
         <p className="sub--title space-between">Get In Touch</p>
 
-        <h2 className="text-lg">Leave us a word about your project!</h2>
+        <h2 className="text-lg">Get in touch with our creator-friendly team!</h2>
       </div>
       <form className="contact--form--container">
         <div className="container">
