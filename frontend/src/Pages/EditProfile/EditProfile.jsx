@@ -1,14 +1,16 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import "./editProfile.scss";
 import { AuthContext } from "../../Context/authContext";
 import axios from "../../axios";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
+import { Toast } from "primereact/toast";
 import Navbar from "../../Components/Home/navbar/Navbar";
 
 const EditProfile = () => {
   const [loading, setLoading] = useState(false);
+  const toast = useRef(null);
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [email, setEmail] = useState(currentUser?.email);
   const [username, setUsername] = useState(currentUser?.username);
@@ -29,11 +31,21 @@ const EditProfile = () => {
         }
       );
       if (data.status === "success") {
-        alert("Password Changed!!");
+        toast.current.show({
+          severity: "info",
+          summary: "Info",
+          detail: "Password Changed Successfully!",
+        });
         setOldPassword("");
         setNewPassword("");
       }
     } catch (err) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "The Old Password is Wrong!",
+        life: 3000,
+      });
       console.log(err);
     }
     setLoading(false);
@@ -61,9 +73,19 @@ const EditProfile = () => {
       const returned_data = await res.json();
       if (res.ok) {
         setCurrentUser(returned_data.updatedUser);
-        alert("Updated");
+        toast.current.show({
+          severity: "info",
+          summary: "Info",
+          detail: "Profile Updated Successfully!",
+        });
       }
     } catch (err) {
+      toast.current.show({
+        severity: "error",
+        summary: "Error",
+        detail: "Something Went Wrong",
+        life: 3000,
+      });
       console.log(err);
     }
     setLoading(false);
@@ -153,6 +175,7 @@ const EditProfile = () => {
                 onClick={handlePass}
               />
             </div>
+            <Toast ref={toast} />
           </div>
         </div>
       </div>

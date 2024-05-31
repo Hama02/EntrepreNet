@@ -9,12 +9,6 @@ const CommentSchema = mongoose.Schema(
       ref: "Publication",
       required: true,
     },
-    status: {
-      type: String,
-      enum: ["active", "reported", "deleted"],
-      default: "active",
-    },
-    reportReason: String,
   },
   { timestamps: true }
 );

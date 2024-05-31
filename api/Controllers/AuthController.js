@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 function generateToken(user) {
   return jwt.sign(
-    { id: user._id, username: user.username },
+    { id: user._id, username: user.username, role: user.accountType },
     process.env.SECRET,
     { expiresIn: "1h" }
   );
@@ -83,4 +83,16 @@ exports.protect = async (req, res, next) => {
     req.user = decoded;
     next();
   });
+};
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({
+        status: "fail",
+        message: "You do not have permission to perform this action",
+      });
+    }
+    next();
+  };
 };
