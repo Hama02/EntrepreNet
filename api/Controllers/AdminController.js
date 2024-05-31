@@ -1,4 +1,5 @@
 const User = require("../Models/User");
+const Post = require("../Models/publication");
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -12,6 +13,22 @@ exports.getAllUsers = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
+      status: "error",
+      message: err.message,
+    });
+  }
+};
+
+exports.getAllPosts = async (req, res) => {
+  try {
+    const posts = await Post.find().populate("userId");
+    return res.status(200).json({
+      status: "success",
+      results: posts.length,
+      posts,
+    });
+  } catch (err) {
+    return res.status(500).json({
       status: "error",
       message: err.message,
     });

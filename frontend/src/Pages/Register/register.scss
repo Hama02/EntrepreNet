@@ -1,12 +1,12 @@
 .register {
   height: 100vh;
-  background-color: rgb(193, 190, 255);
+  background-color: rgb(172, 190, 182);
   display: flex;
   align-items: center;
   justify-content: center;
 
   .card {
-    width: 60%;
+    width: 80%;
     display: flex;
     flex-direction: row-reverse;
     background-color: white;
@@ -15,8 +15,9 @@
     overflow: hidden;
 
     .left {
+      
       flex: 1;
-      background: linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)),
+      background: linear-gradient(rgba(64, 117, 79, 0.5), rgba(39, 11, 96, 0.5)),
         url("https://images.unsplash.com/photo-1665686306574-1ace09918530?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
           center;
       background-size: cover;
@@ -25,35 +26,42 @@
       flex-direction: column;
       gap: 50px;
       color: white;
-
+      text-align: center;
       h1 {
+        margin-top: 60px;
         text-align: center;
         font-size: 30px;
         line-height: 50px;
       }
 
       p {
+        
         font-size: 20px;
       }
 
       span {
+        margin-top: 40px;
         font-size: 14px;
       }
 
       button {
-        width: 50%;
+        margin-top: 15px;
+        width: 40%;
         padding: 10px;
         border: none;
         background-color: white;
-        color: rebeccapurple;
+        color: rgb(69, 139, 113);
         font-weight: bold;
         cursor: pointer;
         text-transform: uppercase;
-        text-decoration: none;
-        display: inline-block;
+        text-align: center;
         transition: all 0.2s;
         position: relative;
         border-radius: 1000px;
+        display:inline-block;
+        align-items: center;
+        justify-content: center;
+        text-decoration-line:unset;
       }
 
       button:hover {
@@ -82,6 +90,7 @@
         background-color: rgb(0, 238, 255);
         transform: scaleX(1.4) scaleY(1.5);
         opacity: 0;
+        
       }
     }
 
@@ -90,8 +99,9 @@
       padding: 50px;
       display: flex;
       flex-direction: column;
-      gap: 30px;
-      justify-content: center;
+      justify-content: center; // Aligner verticalement le contenu
+      align-items: center; // Aligner horizontalement le contenu
+      padding: 50px;
 
       h1 {
         color: #555;
@@ -103,47 +113,48 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-
+        justify-content: center;
+        align-items: center;
         input {
+          width: 180%;
           border: none;
           border-bottom: 1px solid lightgray;
           padding: 20px 10px;
         }
 
-        select {
-          /* Reset */
-          appearance: none;
-          border: 0;
-          outline: 0;
-          font: inherit;
-          /* Personalize */
-          width: 20rem;
-          padding: 1rem 4rem 1rem 1rem;
-          background: var(--arrow-icon) no-repeat right 0.8em center / 1.4em,
-            linear-gradient(to left, var(--arrow-bg) 3em, var(--select-bg) 3em);
-          color: black;
-          border-radius: 0.25em;
-          box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
-          cursor: pointer;
-          /* Remove IE arrow */
-          &::-ms-expand {
-            display: none;
-          }
-          /* Remove focus outline */
-          &:focus {
-            outline: none;
-          }
-          /* <option> colors */
-          option {
-            color: inherit;
-            background-color: var(--option-bg);
-          }
+        .select-wrapper {
+          position: relative;
+          width: 100%;
         }
+        
+        .select-wrapper::after {
+          content: '\25BC'; /* down arrow */
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          transform: translateY(-50%);
+          pointer-events: none;
+        }
+        
+        select {
+          width: 180%;
+          appearance: none;
+          border: 1px solid lightgray;
+          border-radius: 5px;
+          padding: 10px;
+          width: 100%;
+          background: rgba(193, 190, 255, 0.5); /* couleur de fond semi-transparente */
+          font-size: 16px;
+          color: black;
+          cursor: pointer;
+        }
+        
         button {
-          width: 50%;
+          width: 90%;
+          margin: 0 auto;
           padding: 10px;
           border: none;
-          background-color: #938eef;
+          background-color: #506a39;
           color: white;
           font-weight: bold;
           cursor: pointer;
