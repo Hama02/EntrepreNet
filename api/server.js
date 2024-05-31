@@ -6,7 +6,7 @@ const postRouter = require("./Routes/PostRoutes");
 const userRouter = require("./Routes/UserRoutes");
 const commentRouter = require("./Routes/CommentsRoutes");
 const adminRouter = require("./Routes/AdminRoutes");
-const StatsRouter = require("./Routes/StatsRouter");
+const StatsRouter = require("./Routes/StatsRoutes");
 
 const app = express();
 const port = process.env.PORT;
