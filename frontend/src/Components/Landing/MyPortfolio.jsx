@@ -3,32 +3,46 @@ import "./style.css";
 
 export default function MyPortfolio() {
   const [counters, setCounters] = useState({
-    mealsDelivered: 0,
-    projectSuccessRate: 0,
-    userSatisfaction: 0,
-    newProjects: 0,
+    totalInvestors: 0,
+    totalEntrepreneurs: 0,
+    nbOfPosts: 0,
   });
 
   const sectionsRefs = {
-    mealsDelivered: useRef(null),
-    projectSuccessRate: useRef(null),
-    userSatisfaction: useRef(null),
-    newProjects: useRef(null),
+    totalInvestors: useRef(null),
+    totalEntrepreneurs: useRef(null),
+    nbOfPosts: useRef(null),
   };
 
   useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8000/api/v1/stats/get-stats"
+        );
+        const data = await response.json();
+        setCounters({
+          totalInvestors: data.totalInvestors,
+          totalEntrepreneurs: data.totalEntrepreneurs,
+          nbOfPosts: data.nbOfPosts,
+        });
+      } catch (error) {
+        console.error("Error fetching stats:", error);
+      }
+    };
+
+    fetchStats();
+
     const maxCount = {
-      mealsDelivered: 300,
-      projectSuccessRate: 70,
-      userSatisfaction: 80,
-      newProjects: 200,
+      totalInvestors: counters.totalInvestors,
+      totalEntrepreneurs: counters.totalEntrepreneurs,
+      nbOfPosts: counters.nbOfPosts,
     };
 
     const intervals = {
-      mealsDelivered: 25,
-      projectSuccessRate: 50,
-      userSatisfaction: 40,
-      newProjects: 30,
+      totalInvestors: 10000000000000000,
+      totalEntrepreneurs: 100000000000,
+      nbOfPosts: 100000000,
     };
 
     const incrementCount = (counterKey) => {
@@ -48,10 +62,9 @@ export default function MyPortfolio() {
     };
 
     const countersInterval = {
-      mealsDelivered: null,
-      projectSuccessRate: null,
-      userSatisfaction: null,
-      newProjects: null,
+      totalInvestors: null,
+      totalEntrepreneurs: null,
+      nbOfPosts: null,
     };
 
     const options = {
@@ -107,39 +120,30 @@ export default function MyPortfolio() {
       <div className="wrapper">
         <div
           className="cont"
-          ref={sectionsRefs.mealsDelivered}
-          data-counter="mealsDelivered"
+          ref={sectionsRefs.totalInvestors}
+          data-counter="totalInvestors"
         >
           <i className="fas fa-utensils"></i>
-          <span className="num">{counters.mealsDelivered}K</span>
-          <span className="text">Total Users</span>
+          <span className="num">{counters.totalInvestors}</span>
+          <span className="text">Total Investors</span>
         </div>
         <div
           className="cont"
-          ref={sectionsRefs.projectSuccessRate}
-          data-counter="projectSuccessRate"
+          ref={sectionsRefs.totalEntrepreneurs}
+          data-counter="totalEntrepreneurs"
         >
           <i className="fas fa-smile-beam"></i>
-          <span className="num">{counters.projectSuccessRate}%</span>
-          <span className="text">Success Rate</span>
+          <span className="num">{counters.totalEntrepreneurs}</span>
+          <span className="text">Total Entrepreneurs</span>
         </div>
         <div
           className="cont"
-          ref={sectionsRefs.userSatisfaction}
-          data-counter="userSatisfaction"
+          ref={sectionsRefs.nbOfPosts}
+          data-counter="nbOfPosts"
         >
           <i className="fas fa-list"></i>
-          <span className="num">{counters.userSatisfaction}%</span>
-          <span className="text">User Satisfaction</span>
-        </div>
-        <div
-          className="cont"
-          ref={sectionsRefs.newProjects}
-          data-counter="newProjects"
-        >
-          <i className="fas fa-star"></i>
-          <span className="num">{counters.newProjects}</span>
-          <span className="text">New Projects/Month</span>
+          <span className="num">{counters.nbOfPosts}</span>
+          <span className="text">Number of posts</span>
         </div>
       </div>
     </section>
