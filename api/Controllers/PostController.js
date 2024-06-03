@@ -94,7 +94,7 @@ exports.getFeedPosts = async (req, res) => {
       query.userId = id;
     }
     if (domain) {
-      query.domain = domain;
+      query.domain = domain.replace(/_/g, " ");
     }
 
     const postsPromise = Publication.find(query)

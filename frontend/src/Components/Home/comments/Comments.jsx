@@ -4,13 +4,14 @@ import { AuthContext } from "../../../Context/authContext";
 import axios from "../../../axios";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Button } from "primereact/button";
+import ReactTimeAgo from "react-time-ago";
 
 // eslint-disable-next-line react/prop-types
-const Comments = ({ postId }) => {
+const Comments = ({ postId, setCommentsLength }) => {
   const { currentUser } = useContext(AuthContext);
   const [commentContent, setCommentContent] = useState("");
   const [comments, setComments] = useState([]);
-  const [showDelete, setShowDelete] = useState(false);
+  const [showDelete, setShowDelete] = useState({});
 
   const fetchComments = async () => {
     try {
@@ -33,6 +34,7 @@ const Comments = ({ postId }) => {
       });
       setCommentContent("");
       fetchComments();
+      setCommentsLength((prev) => prev + 1);
     } catch (error) {
       alert("Something went wrong!");
       console.error(error);
@@ -43,6 +45,7 @@ const Comments = ({ postId }) => {
     try {
       await axios.delete(`/comments/${commnetId}/${postId}`);
       fetchComments();
+      setCommentsLength((prev) => prev - 1);
     } catch (error) {
       console.error(error);
     }
@@ -75,10 +78,15 @@ const Comments = ({ postId }) => {
           {comment?.user._id === currentUser?._id && (
             <MoreHorizIcon
               className="comment-icon"
-              onClick={() => setShowDelete(!showDelete)}
+              onClick={() =>
+                setShowDelete({
+                  ...showDelete,
+                  [comment?._id]: !showDelete[comment?._id],
+                })
+              }
             />
           )}
-          {showDelete && (
+          {showDelete[comment?._id] && (
             <Button
               label="Delete"
               severity="danger"
@@ -86,7 +94,9 @@ const Comments = ({ postId }) => {
             />
           )}
 
-          <span className="date">1 hour ago</span>
+          <span className="date">
+            <ReactTimeAgo date={new Date(comment?.createdAt)} locale="en-US" />
+          </span>
         </div>
       ))}
     </div>

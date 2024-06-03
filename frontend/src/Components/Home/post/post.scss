@@ -15,9 +15,20 @@
       justify-content: space-between;
       position: relative;
 
+      .btn-handler {
+        all: unset;
+
+        button {
+          position: absolute;
+          width: 130px;
+          right: -6px;
+          top: 25px;
+        }
+      }
+
       .chip {
         position: absolute;
-        left: 180px;
+        left: 200px;
         top: -6px;
       }
       .report-tab {
