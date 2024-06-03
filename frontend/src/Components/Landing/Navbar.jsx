@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom for navigation
 
 function Navbar() {
   const [navActive, setNavActive] = useState(false);
@@ -15,7 +16,7 @@ function Navbar() {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 500) {
-        closeMenu;
+        closeMenu();
       }
     };
 
@@ -28,7 +29,7 @@ function Navbar() {
 
   useEffect(() => {
     if (window.innerWidth <= 1200) {
-      closeMenu;
+      closeMenu();
     }
   }, []);
 
@@ -48,7 +49,7 @@ function Navbar() {
       <div className={`navbar--items ${navActive ? "active" : ""}`}>
         <ul>
           <li>
-            <Link
+            <ScrollLink
               onClick={closeMenu}
               activeClass="navbar--active-content"
               spy={true}
@@ -59,10 +60,10 @@ function Navbar() {
               className="navbar--content"
             >
               Home
-            </Link>
+            </ScrollLink>
           </li>
           <li>
-            <Link
+            <ScrollLink
               onClick={closeMenu}
               activeClass="navbar--active-content"
               spy={true}
@@ -73,10 +74,10 @@ function Navbar() {
               className="navbar--content"
             >
               About Us
-            </Link>
+            </ScrollLink>
           </li>
           <li>
-            <Link
+            <ScrollLink
               onClick={closeMenu}
               activeClass="navbar--active-content"
               spy={true}
@@ -87,10 +88,10 @@ function Navbar() {
               className="navbar--content"
             >
               Statistics
-            </Link>
+            </ScrollLink>
           </li>
           <li>
-            <Link
+            <ScrollLink
               onClick={closeMenu}
               activeClass="navbar--active-content"
               spy={true}
@@ -101,12 +102,12 @@ function Navbar() {
               className="navbar--content"
             >
               Testimonials
-            </Link>
+            </ScrollLink>
           </li>
         </ul>
       </div>
       <div className="button-container">
-        <Link
+        <ScrollLink
           onClick={closeMenu}
           activeClass="navbar--active-content"
           spy={true}
@@ -117,14 +118,9 @@ function Navbar() {
           className="btn btn-outline-primary"
         >
           Contact Us
-        </Link>
+        </ScrollLink>
         <Link
           onClick={closeMenu}
-          activeClass="navbar--active-content"
-          spy={true}
-          smooth={true}
-          offset={-70}
-          duration={500}
           to="/login"
           className="btn btn-outline-primary"
         >

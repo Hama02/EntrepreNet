@@ -1,4 +1,8 @@
 export default function HeroSection() {
+  const handleButtonClick = () => {
+    window.location.href = '/register';
+  };
+
   return (
     <section id="heroSection" className="hero--section">
       <div className="hero--section--content--box">
@@ -15,7 +19,7 @@ export default function HeroSection() {
             <br /> Building the future, one deal at a time!
           </p>
         </div>
-        <button className="btn btn-primary">Begin Your Journey Here</button>
+        <button className="btn btn-primary" onClick={handleButtonClick}>Begin Your Journey Here</button>
       </div>
       <div className="hero--section--img">
         <img src="./img/img7.png" alt="Hero Section" />
