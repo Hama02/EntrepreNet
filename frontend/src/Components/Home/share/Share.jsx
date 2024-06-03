@@ -9,7 +9,7 @@ import { Dropdown } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
 import { Toast } from "primereact/toast";
 
-const Share = () => {
+const Share = ({ setRefresh }) => {
   const { currentUser } = useContext(AuthContext);
   const toast = useRef(null);
   const [loading, setLoading] = useState(false);
@@ -81,6 +81,7 @@ const Share = () => {
           detail: "Post Created",
         });
       }
+      setRefresh(true);
     } catch (err) {
       toast.current.show({
         severity: "error",

@@ -27,6 +27,11 @@ const Login = () => {
       );
       setError(false);
       setErrorMsg("");
+      if (data.user.status === "blocked") {
+        setError(true);
+        setErrorMsg("Your account has been blocked. Please contact the admin.");
+        return;
+      }
       localStorage.setItem("token", data.token);
       setCurrentUser(data.user);
       navigate("/home");
@@ -59,9 +64,7 @@ const Login = () => {
                 <ul className="content__container__list">
                   <li className="content__container__list__item">innovate</li>
                   <li className="content__container__list__item">invest</li>
-                  <li className="content__container__list__item">
-                    team up
-                  </li>
+                  <li className="content__container__list__item">team up</li>
                   <li className="content__container__list__item">succeed</li>
                 </ul>
               </div>

@@ -10,12 +10,13 @@ import { useContext, useState } from "react";
 import axios from "../../../axios";
 import { AuthContext } from "../../../Context/authContext";
 import Modal from "./Modal";
+import ReactTimeAgo from "react-time-ago";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import ChatBox from "../../ChatContainer";
 import { Chip } from "primereact/chip";
 import { Button } from "primereact/button";
 
-const Post = ({ post }) => {
+const Post = ({ post, setRefresh }) => {
   const { currentUser } = useContext(AuthContext);
   const [commentOpen, setCommentOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
@@ -24,6 +25,9 @@ const Post = ({ post }) => {
   const [reportOpen, setReportOpen] = useState(false);
   const [toggleDelete, setToggleDelete] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [commentsLength, setCommentsLength] = useState(
+    post?.comments?.length || 0
+  );
   const handleLike = async () => {
     try {
       await axios.put(`/posts/${post?._id}/like`);
@@ -52,6 +56,15 @@ const Post = ({ post }) => {
     }
   };
 
+  const deletePost = async (id) => {
+    try {
+      await axios.delete(`/posts/post/${id}`);
+      setRefresh(true);
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
+
   const handleModalOpen = () => {
     setVisible(true);
   };
@@ -75,7 +88,7 @@ const Post = ({ post }) => {
             <Chip label={`${post?.budget} TND`} className="chip" />
           )}
           <button
-            style={{ all: "unset" }}
+            className="btn-handler"
             onClick={
               currentUser?._id !== post?.userId?._id
                 ? handleReport
@@ -94,11 +107,16 @@ const Post = ({ post }) => {
                 <Modal
                   visible={visible}
                   setVisible={setVisible}
-                  userId={post.userId._id}
+                  userId={post?.userId?._id}
                 />
               </div>
             ) : (
-              toggleDelete && <Button label="Delete Post" />
+              toggleDelete && (
+                <Button
+                  label="Delete Post"
+                  onClick={() => deletePost(post?._id)}
+                />
+              )
             )}
           </button>
         </div>
@@ -119,7 +137,9 @@ const Post = ({ post }) => {
               >
                 <span className="name">{post?.userId?.username}</span>
               </Link>
-              <span className="date">1 min ago</span>
+              <span className="date">
+                <ReactTimeAgo date={new Date(post?.createdAt)} locale="en-US" />
+              </span>
             </div>
           </div>
           <div className="item" onClick={handleToggleLike}>
@@ -128,16 +148,19 @@ const Post = ({ post }) => {
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
-            {post?.comments?.length} Comments
+            {commentsLength} Comments
           </div>
-          {post?.userId?.accountType === "Investisseur" && (
-            <div className="item" onClick={handleChatToggle}>
-              <ChatOutlinedIcon /> Negotiate
-              {chatOpen && <ChatBox postName={post?.userId?.username} />}
-            </div>
-          )}
+          {post?.userId?.accountType === "Investisseur" &&
+            currentUser?._id !== post?.userId?._id && (
+              <div className="item" onClick={handleChatToggle}>
+                <ChatOutlinedIcon /> Negotiate
+                {chatOpen && <ChatBox postName={post?.userId?.username} />}
+              </div>
+            )}
         </div>
-        {commentOpen && <Comments postId={post._id} />}
+        {commentOpen && (
+          <Comments postId={post._id} setCommentsLength={setCommentsLength} />
+        )}
       </div>
     </div>
   );
