@@ -18,12 +18,22 @@ const PublicationSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
-    status:{
-      type: Boolean,
-      required: true
+    likes: { type: Number, default: 0 },
+    likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    domain: {
+      type: String,
+    },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+    budget: {
+      type: Number,
+    },
+    type: {
+      type: String,
+      enum: ["offre", "post"],
+      required: true,
     },
   },
-    { timestamps: true }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Publication", PublicationSchema);

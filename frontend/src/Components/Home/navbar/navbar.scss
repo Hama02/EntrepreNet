@@ -1,0 +1,121 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 85.333px;
+  background: rgb(236, 243, 240);
+  box-shadow: 0px 5.333px 80px 0 rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    span {
+      font-weight: bold;
+      font-size: 20px;
+      color: darkblue;
+    }
+
+    .search {
+      display: flex;
+      position: relative;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid lightgray;
+      border-radius: 5px;
+      padding: 5px;
+
+      .search-items {
+        position: absolute;
+        top: 60px;
+        background-color: white;
+        width: 500px;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 999;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        // display: none;
+
+        .item {
+          display: flex;
+          gap: 10px;
+          cursor: pointer;
+          transition: 0.4s;
+          &:hover {
+            background-color: lightgray;
+          }
+
+          img {
+            width: 100px;
+          }
+        }
+      }
+
+      input {
+        border: none;
+        width: 500px;
+        padding: 15px;
+        outline: none;
+        background-color: transparent;
+        color: black;
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      cursor: pointer;
+      position: relative;
+
+      .mini-menu {
+        position: absolute;
+        bottom: -102px;
+        background-color: rgb(177, 174, 174);
+        padding: 15px 20px;
+        width: 148px;
+
+        a {
+          text-decoration: none;
+          transition: 0.4s;
+          color: black;
+          &:hover {
+            border-bottom: 1px solid black;
+          }
+        }
+        button {
+          all: unset;
+          margin-top: 6px;
+          transition: 0.4s;
+          &:hover {
+            border-bottom: 1px solid black;
+          }
+        }
+      }
+
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+  }
+}

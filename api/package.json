@@ -8,7 +8,10 @@
     "hbs": "^4.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.5.0",
-    "mongoose": "^8.2.3"
+    "mongoose": "^8.2.3",
+    "multer": "^1.4.5-lts.1",
+    "socket.io": "^4.7.5",
+    "ws": "^8.17.0"
   },
   "scripts": {
     "start": "nodemon --env-file=config.env server.js"

@@ -1,3 +1,5 @@
+/* Global CSS */
+
 body {
   margin: 0;
   font-family: "Roboto", sans-serif;
@@ -27,10 +29,10 @@ p {
 }
 
 .btn {
-  font-family: "Roboto";
+  font-family: Arial, Helvetica, sans-serif;
   display: inline-block;
   padding: 14px 32px;
-  font-size: 16px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
@@ -50,24 +52,27 @@ p {
 }
 
 .btn-outline-primary {
-  color: var(--primary);
+  color: #487354;
   background-color: var(--white);
-  border: 1px solid var(--primary);
+  border: 2px solid #487354;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
 }
 
 .btn-outline-primary:hover {
   color: var(--white);
-  background-color: var(--primary);
+  background-color: #487354;
 }
 
 .btn-primary {
   color: var(--white);
-  background-color: var(--primary);
-  border: 1px solid var(--primary);
+  background-color: #487354;
+  border: 2px solid #487354;
+  font-weight: bold;
 }
 
 .btn-primary:hover {
-  color: var(--primary);
+  color: #487354;
   background-color: var(--white);
 }
 
@@ -116,19 +121,20 @@ h2 {
 /* Body 1 */
 .text-lg {
   color: var(--darkblue);
-  font-size: 18px;
+  font-size: 30px;
   font-style: normal;
   font-weight: 400;
   line-height: 27px;
+  color: gray;
 }
 
 /* Body 2 */
 .text-md {
   color: var(--darkblue);
-  font-size: 16px;
+  font-size: 18px;
   font-style: normal;
-  font-weight: 400;
   line-height: 24px;
+  font-family: "Roboto", sans-serif;
 }
 
 /* Body 3 */
@@ -138,6 +144,7 @@ h2 {
   font-style: normal;
   font-weight: 400;
   line-height: 21px;
+
 }
 
 /* Section Titles */
@@ -156,9 +163,17 @@ h2 {
 /* Portfolio, Testimonial & Contact Me */
 .sub--title {
   color: var(--heading-color);
-  font-size: 16px;
+  font-size: 40px;
   font-weight: 600;
   line-height: 24px;
+  font-family: "Poetsen One";
+  color: #006b6a;
+
+}
+
+.space-between {
+  margin-bottom: 20px;
+  /* Adjust the value to get the desired space */
 }
 
 /* Section Titles Ends */
@@ -166,15 +181,14 @@ h2 {
 /* Navbar Style Start */
 .navbar {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  /* Center the navbar items */
   align-items: center;
-  padding: 15px 85.333px;
-  background: var(--white);
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: rgb(172, 190, 182);
   box-shadow: 0px 5.333px 80px 0 rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  /* Ensure background color contrasts with text */
 }
 
 .navbar--items>ul {
@@ -191,21 +205,35 @@ h2 {
 
 /* Navbar Content */
 .navbar--content {
+  margin: 0 15px;
+  /* Add space between items */
   color: var(--darkblue);
-  font-size: 16px;
+  font-size: 20px;
+  /* Adjust font size for better fit */
   font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
+  font-weight:bold;
   cursor: pointer;
+  color: #000000;
+  transition: all 0.3s ease;
+  /* Smooth transition for all properties */
+  font-family: "Roboto", sans-serif;
 }
 
 .navbar--content:hover {
-  font-size: 1.1em;
-  text-decoration: underline;
+  font-size: 22px;
+  /* Slightly increase font size on hover */
+  font-weight: bold;
+  /* Bold font on hover */
+  color: #004f4e;
+  /* Darker color on hover */
 }
 
-.navbar--active-content {
-  color: var(--primary);
+.navbar--content.active {
+  font-weight: bold;
+  color: #004f4e;
+  /* Darker color for active item */
+  border-bottom: 2px solid #004f4e;
+  /* Underline active item */
 }
 
 .button-container {
@@ -220,11 +248,13 @@ h2 {
 .hero--section {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  padding: 133.333px 85.333px 133.333px;
+  padding: 133.333px 85.333px;
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  background-color: var(--bg-shade);
+  position: relative; /* Added to position the animated background */
+  overflow: hidden; /* To ensure the animation stays within the section */
+  z-index: 1; /* To place content above the animated background */
 }
 
 .hero--section--content-box {
@@ -232,6 +262,7 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
+  z-index: 2; /* To ensure the content is above the animated background */
 }
 
 .hero--section--content {
@@ -239,10 +270,13 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   gap: 21.333px;
+  z-index: 2; /* Ensure the content is above the animated background */
 }
 
-.hero--section--content--box>button {
+.hero--section--content--box > button {
   margin-top: 21.333px;
+  z-index: 10; /* High z-index to be above other elements */
+  position: relative; /* Ensure it respects the z-index */
 }
 
 .hero--section--title {
@@ -250,7 +284,9 @@ h2 {
   font-size: 74.667px;
   font-weight: 700;
   line-height: 90px;
+  font-family: "roboto";
   align-self: stretch;
+  z-index: 2; /* Ensure the title is above the animated background */
 }
 
 .hero--section--title--color {
@@ -259,19 +295,143 @@ h2 {
 
 .hero--section-description {
   color: var(--darkblue);
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 400;
   line-height: 36px;
+  font-family: "roboto sans-serif";
 }
 
 .hero--section--img {
   display: flex;
+  z-index: 2; /* Ensure the image is above the animated background */
 }
 
-.hero--section--img>img {
+.hero--section--img > img {
   width: 100%;
   height: 100%;
 }
+
+/* Animated Background Style */
+.area {
+  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Ensure it's below the content */
+}
+
+.circles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.circles li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: rgb(172, 190, 182);
+  animation: animate 25s linear infinite;
+  bottom: -150px;
+  z-index: 0;
+}
+
+.circles li:nth-child(1) {
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(2) {
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+.circles li:nth-child(3) {
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+
+.circles li:nth-child(4) {
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.circles li:nth-child(5) {
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(6) {
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;
+}
+
+.circles li:nth-child(7) {
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;
+}
+
+.circles li:nth-child(8) {
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 45s;
+}
+
+.circles li:nth-child(9) {
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 35s;
+}
+
+.circles li:nth-child(10) {
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    border-radius: 0;
+  }
+  100% {
+    transform: translateY(-1000px) rotate(720deg);
+    opacity: 0;
+    border-radius: 50%;
+  }
+}
+
 
 /* Hero Section Style Ends */
 
@@ -290,6 +450,8 @@ h2 {
   font-size: 64px;
   font-weight: 700;
   line-height: 77px;
+  font-family: "Poetsen One";
+  color: #006b6a;
 }
 
 .skills--section--container {
@@ -310,14 +472,23 @@ h2 {
   border-radius: 10.6px;
   background: var(--bg-shade);
   min-height: 250px;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 .skills--section--card:hover {
-  border-bottom: 4px solid var(--primary);
+  border-bottom: 4px solid #6fd8d9;
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .skills--section--card:hover .skills--section--description {
   color: var(--darkblue);
+}
+
+.skills--section--card:hover .skills--section--img img {
+  transform: scale(1.05);
 }
 
 .skills--section--img {
@@ -329,6 +500,12 @@ h2 {
   border-radius: 10.6px;
   background: #fff;
   box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.1);
+}
+
+.skills--section--img img {
+  transition: transform 0.3s ease;
+  width: 60%;
+  height: 60%;
 }
 
 .skills--section--card--content {
@@ -365,9 +542,23 @@ h2 {
   grid-template-columns: repeat(2, 1fr);
 }
 
+.contact--section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.about--section h1 {
+  font-family: "Poetsen One";
+  color: #006b6a;
+
+}
+
 .about--section--img>img {
   width: 100%;
   height: 100%;
+
 }
 
 /* About Us Ends */
@@ -379,6 +570,7 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   gap: 80px;
+  color: #006b6a;
 }
 
 .portfolio--container-box {
@@ -435,6 +627,7 @@ h2 {
 }
 
 .portfolio--section--title {
+  text-align: center;
   color: var(--heading-color);
 }
 
@@ -442,7 +635,7 @@ h2 {
   text-decoration: none;
   display: flex;
   gap: 16px;
-  border-bottom: 1.33px solid var(--primary);
+  border-bottom: 2px solid var(--primary);
   padding-bottom: 10.6px;
   font-weight: 600;
 }
@@ -465,6 +658,8 @@ h2 {
 
 .sections--heading {
   color: var(--heading-color);
+  font-family: "Poetsen One";
+  color: #006b6a;
 }
 
 .testimonial--section--card {
@@ -475,7 +670,7 @@ h2 {
   gap: 42.6px;
   flex: 1 0 0;
   border-radius: 8px;
-  border: 1.33px solid #006b6a;
+  border: 2px solid #006b6a;
 }
 
 .testimonial--section--card--reviews {
@@ -544,7 +739,7 @@ h2 {
   align-items: center;
   align-self: stretch;
   border-radius: 8px;
-  border: 1.333px solid var(--primary);
+  border: 2px solid #487354;
   background: var(--white);
 }
 
@@ -584,7 +779,6 @@ input[type="checkbox"] {
 /* Contact End */
 
 /* Footer Start */
-/* Footer Starts */
 .footer--container {
   display: flex;
   padding: 106.667px 85.333px;
@@ -609,6 +803,11 @@ input[type="checkbox"] {
   gap: 42.667px;
   text-decoration: none;
   cursor: pointer;
+  transition: font-size 0.5s;
+}
+.footer--items>ul>li:hover>a {
+  font-weight: bold;
+  font-size: 1.1em;
 }
 
 .footer--items ul>li>a {
@@ -823,7 +1022,7 @@ input[type="checkbox"] {
     align-items: center;
     justify-content: center;
     background-color: rgba(255, 255, 255);
-    top: -20rem;
+    top: -30rem;
     left: 0;
     width: 100%;
     transition: all ease-in-out 0.4s;

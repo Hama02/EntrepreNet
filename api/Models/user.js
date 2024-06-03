@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Post = require("./publication");
 
 const UserSchema = mongoose.Schema(
   {
@@ -25,8 +26,27 @@ const UserSchema = mongoose.Schema(
       enum: ["Admin", "Investisseur", "Entrepreneur"],
       required: true,
     },
+    profilePicture: {
+      type: String,
+      default: "uploads/profile.jpg",
+    },
+    status: {
+      type: String,
+      enum: ["notVerified", "verified", "blocked"],
+      default: "notVerified",
+    },
+    reportCount: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
+
+UserSchema.pre("findOneAndDelete", async function (next) {
+  const userId = this.getQuery()["_id"];
+  await Post.deleteMany({ userId });
+  next();
+});
 
 module.exports = mongoose.model("User", UserSchema);

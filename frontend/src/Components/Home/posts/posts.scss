@@ -1,0 +1,13 @@
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  .pagination-container {
+    display: flex;
+    gap: 20px;
+    .dropdown {
+      width: fit-content;
+    }
+  }
+}
