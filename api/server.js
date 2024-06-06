@@ -7,23 +7,20 @@ const userRouter = require("./Routes/UserRoutes");
 const commentRouter = require("./Routes/CommentsRoutes");
 const adminRouter = require("./Routes/AdminRoutes");
 const StatsRouter = require("./Routes/StatsRoutes");
+
 const offerRouter = require("./Routes/OfferRoutes");
-const messageRoutes = require("./Routes/messageRoutes");
 
-//import { app, server } from "./socket/socket.js";
-const socket = require("./socket/socket.js");
-
-//const app = express();
+const app = express();
 const port = process.env.PORT;
 
-socket.app.use(express.json());
-socket.app.use(
+app.use(express.json());
+app.use(
   cors({
     credentials: true,
     origin: ["http://localhost:5173", "http://localhost:3000"],
   })
 );
-socket.app.options("*", cors());
+app.options("*", cors());
 connectDB();
 
 app.use("/uploads", express.static(__dirname + "/uploads"));
@@ -33,6 +30,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/comments", commentRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/stats", StatsRouter);
+app.use("/api/v1/offers", offerRouter);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}`);
