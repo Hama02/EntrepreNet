@@ -4,13 +4,15 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../Context/authContext";
 import { Dropdown } from "primereact/dropdown";
 import axios from "../../../axios";
 
 const Navbar = ({ domain, setDomain }) => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState([]);
   const [show, setShow] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -23,11 +25,42 @@ const Navbar = ({ domain, setDomain }) => {
     { name: "sport" },
   ];
 
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    const fetchUnreadNotifications = async () => {
+      try {
+        const response = await axios.get("/users/notifications/unread");
+        const data = response.data;
+        setNotifications(data);
+        setUnreadCount(data.length);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchUnreadNotifications();
+    const intervalId = setInterval(fetchUnreadNotifications, 30000);
+    return () => clearInterval(intervalId);
+  }, []);
+
   const handleLogout = () => {
     setCurrentUser({});
     localStorage.removeItem("currentUser");
     localStorage.removeItem("token");
     navigate("/login");
+  };
+
+  const handleBellClick = async () => {
+    setShowNotifications(!showNotifications);
+    if (showNotifications) {
+      try {
+        await axios.put("/users/notifications/read");
+        setUnreadCount(0);
+      } catch (error) {
+        console.error("Error marking notifications as read:", error);
+      }
+    }
   };
 
   const handleSearch = async (e) => {
@@ -77,7 +110,22 @@ const Navbar = ({ domain, setDomain }) => {
       </div>
       <div className="right">
         <EmailOutlinedIcon />
-        <NotificationsOutlinedIcon />
+        <div className="notification" onClick={handleBellClick}>
+          <NotificationsOutlinedIcon />
+          <div className="notification-bell">
+            {unreadCount > 0 && (
+              <span className="notification-badge">{unreadCount}</span>
+            )}
+            {showNotifications && (
+              <div className="notification-dropdown">
+                {notifications.map((notification) => (
+                  <div key={notification._id}>{notification.content}</div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
         <div
           className="user"
           onClick={() => (show ? setShow(false) : setShow(true))}

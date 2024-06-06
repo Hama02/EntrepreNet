@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <div className="home">
       <Navbar domain={domain} setDomain={setDomain} />
-      <Share setRefresh={setRefresh} />
+      <Share setRefresh={setRefresh} refresh={refresh} />
       <Posts
         domain={domain}
         setDomain={setDomain}
