@@ -17,4 +17,5 @@ router.put(
   AuthController.protect,
   UserController.changePass
 );
+router.get("/", AuthController.protect, UserController.getUsersForSidebar);
 module.exports = router;

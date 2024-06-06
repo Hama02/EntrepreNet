@@ -67,22 +67,26 @@ exports.login = async (req, res) => {
 };
 
 exports.protect = async (req, res, next) => {
-  const token = req.headers["authorization"]?.split(" ")[1];
-  if (!token) {
-    return res
-      .status(401)
-      .json({ status: "failed", msg: "No token provided." });
-  }
-
-  jwt.verify(token, process.env.SECRET, (err, decoded) => {
-    if (err) {
+  try {
+    const token = req.headers["authorization"]?.split(" ")[1];
+    if (!token) {
       return res
-        .status(500)
-        .json({ status: "failed", msg: "Failed to authenticate token." });
+        .status(401)
+        .json({ status: "failed", msg: "No token provided." });
     }
-    req.user = decoded;
-    next();
-  });
+
+    jwt.verify(token, process.env.SECRET, (err, decoded) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ status: "failed", msg: "Failed to authenticate token." });
+      }
+      req.user = decoded;
+      next();
+    });
+  } catch (err) {
+    return res.status(500).json({ status: "failed", err });
+  }
 };
 
 exports.restrictTo = (...roles) => {
