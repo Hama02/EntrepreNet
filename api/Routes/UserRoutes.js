@@ -17,5 +17,17 @@ router.put(
   AuthController.protect,
   UserController.changePass
 );
+
+router.get(
+  "/notifications/unread",
+  AuthController.protect,
+  UserController.fetchNotification
+);
+
+router.put(
+  "/notifications/read",
+  AuthController.protect,
+  UserController.markAsRead
+);
 router.get("/", AuthController.protect, UserController.getUsersForSidebar);
 module.exports = router;

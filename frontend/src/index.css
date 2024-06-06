@@ -19,7 +19,7 @@ p {
 }
 
 :root {
-  --primary: #5e3bee;
+  --primary: #6fd8d9;
   --heading-color: #282938;
   --bg-shade: #f5fcff;
   --github: #e62872;
@@ -211,7 +211,7 @@ h2 {
   font-size: 20px;
   /* Adjust font size for better fit */
   font-style: normal;
-  font-weight:bold;
+  font-weight: bold;
   cursor: pointer;
   color: #000000;
   transition: all 0.3s ease;
@@ -252,9 +252,12 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  position: relative; /* Added to position the animated background */
-  overflow: hidden; /* To ensure the animation stays within the section */
-  z-index: 1; /* To place content above the animated background */
+  position: relative;
+  /* Added to position the animated background */
+  overflow: hidden;
+  /* To ensure the animation stays within the section */
+  z-index: 1;
+  /* To place content above the animated background */
 }
 
 .hero--section--content-box {
@@ -262,7 +265,8 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
-  z-index: 2; /* To ensure the content is above the animated background */
+  z-index: 2;
+  /* To ensure the content is above the animated background */
 }
 
 .hero--section--content {
@@ -270,13 +274,16 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   gap: 21.333px;
-  z-index: 2; /* Ensure the content is above the animated background */
+  z-index: 2;
+  /* Ensure the content is above the animated background */
 }
 
-.hero--section--content--box > button {
+.hero--section--content--box>button {
   margin-top: 21.333px;
-  z-index: 10; /* High z-index to be above other elements */
-  position: relative; /* Ensure it respects the z-index */
+  z-index: 10;
+  /* High z-index to be above other elements */
+  position: relative;
+  /* Ensure it respects the z-index */
 }
 
 .hero--section--title {
@@ -286,7 +293,8 @@ h2 {
   line-height: 90px;
   font-family: "roboto";
   align-self: stretch;
-  z-index: 2; /* Ensure the title is above the animated background */
+  z-index: 2;
+  /* Ensure the title is above the animated background */
 }
 
 .hero--section--title--color {
@@ -303,10 +311,11 @@ h2 {
 
 .hero--section--img {
   display: flex;
-  z-index: 2; /* Ensure the image is above the animated background */
+  z-index: 2;
+  /* Ensure the image is above the animated background */
 }
 
-.hero--section--img > img {
+.hero--section--img>img {
   width: 100%;
   height: 100%;
 }
@@ -319,7 +328,8 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* Ensure it's below the content */
+  z-index: 0;
+  /* Ensure it's below the content */
 }
 
 .circles {
@@ -425,6 +435,7 @@ h2 {
     opacity: 1;
     border-radius: 0;
   }
+
   100% {
     transform: translateY(-1000px) rotate(720deg);
     opacity: 0;
@@ -718,9 +729,6 @@ h2 {
 
 .cont {
   display: grid;
-  grid-template-columns: repeat(2, auto);
-  column-gap: 32px;
-  row-gap: 32px;
 }
 
 .contact--label {
@@ -805,6 +813,7 @@ input[type="checkbox"] {
   cursor: pointer;
   transition: font-size 0.5s;
 }
+
 .footer--items>ul>li:hover>a {
   font-weight: bold;
   font-size: 1.1em;

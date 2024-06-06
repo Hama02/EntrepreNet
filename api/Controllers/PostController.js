@@ -3,6 +3,7 @@ const Report = require("../Models/report");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
+const notification = require("../Models/notification");
 
 exports.createPost = async (req, res) => {
   try {
@@ -86,7 +87,9 @@ exports.getFeedPosts = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit;
 
-    let query = {};
+    let query = {
+      status: "pending",
+    };
     if (id) {
       if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({ status: "failed", msg: "Invalid ID" });
@@ -141,6 +144,15 @@ exports.like = async (req, res) => {
       { $inc: { likes: 1 }, $push: { likedBy: userId } },
       { new: true }
     );
+    const { likedby } = req.body;
+    const newNotification = new notification({
+      user: post.userId,
+      type: "like",
+      content: `${likedby} liked your post.`,
+      relatedPost: post._id,
+    });
+
+    await newNotification.save();
     if (!post) {
       return res
         .status(400)

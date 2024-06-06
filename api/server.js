@@ -7,6 +7,7 @@ const userRouter = require("./Routes/UserRoutes");
 const commentRouter = require("./Routes/CommentsRoutes");
 const adminRouter = require("./Routes/AdminRoutes");
 const StatsRouter = require("./Routes/StatsRoutes");
+const offerRouter = require("./Routes/OfferRoutes");
 const messageRoutes = require("./Routes/messageRoutes");
 
 //import { app, server } from "./socket/socket.js";
@@ -25,15 +26,14 @@ socket.app.use(
 socket.app.options("*", cors());
 connectDB();
 
-socket.app.use("/uploads", express.static(__dirname + "/uploads"));
-socket.app.use("/api/v1/auth", authRouter);
-socket.app.use("/api/v1/posts", postRouter);
-socket.app.use("/api/v1/users", userRouter);
-socket.app.use("/api/v1/comments", commentRouter);
-socket.app.use("/api/v1/admin", adminRouter);
-socket.app.use("/api/v1/stats", StatsRouter);
-socket.app.use("/api/v1/messages", messageRoutes);
+app.use("/uploads", express.static(__dirname + "/uploads"));
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/posts", postRouter);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/comments", commentRouter);
+app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/stats", StatsRouter);
 
-socket.server.listen(port, () => {
+app.listen(port, () => {
   console.log(`App running on port ${port}`);
 });

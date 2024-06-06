@@ -96,17 +96,15 @@ const EditProfile = () => {
     setSelectedImage(imageFile);
     setPreviewURL(URL.createObjectURL(imageFile));
   };
+
   return (
     <>
       <Navbar />
       <div className="profile">
+        <div className="header">
+          <h4>"Innovate and Activate! Make the future radiate."</h4>
+        </div>
         <div className="images">
-          <img
-            src="https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-            alt=""
-            className="cover"
-          />
-
           <div>
             <img
               src={
@@ -154,7 +152,7 @@ const EditProfile = () => {
 
             <div className="pass">
               <div className="item">
-                <span>Old Password</span>
+                <span>Old Password: </span>
                 <Password
                   feedback={false}
                   value={oldPassword}
@@ -162,15 +160,14 @@ const EditProfile = () => {
                 />
               </div>
               <div className="item">
-                <span>New Password</span>
+                <span>New Password : </span>
                 <Password
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                 />
               </div>
               <Button
-                label="Change Your password"
-                icon="pi pi-check"
+                label="Change Your Password"
                 loading={loading}
                 onClick={handlePass}
               />

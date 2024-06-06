@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
 const User = require("../Models/User");
+const notification = require("../Models/notification");
 
 exports.getProfile = async (req, res) => {
   try {
@@ -102,6 +103,36 @@ exports.deleteUser = async (req, res) => {
       status: "success",
       msg: "User deleted successfully",
     });
+  } catch (err) {
+    return res.status(500).json({ status: "failed", err });
+  }
+};
+
+exports.fetchNotification = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const unreadNotifications = await notification.find({
+      user: userId,
+      isRead: false,
+    });
+    console.log(unreadNotifications);
+    return res.status(200).json(unreadNotifications);
+  } catch (error) {
+    console.error("Error fetching unread notifications:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.markAsRead = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    await notification.updateMany(
+      { user: userId, isRead: false },
+      { isRead: true }
+    );
+    return res
+      .status(200)
+      .json({ status: "success", msg: "Notifications marked as read" });
   } catch (err) {
     return res.status(500).json({ status: "failed", err });
   }

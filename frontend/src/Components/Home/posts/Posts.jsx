@@ -54,7 +54,12 @@ const Posts = ({ domain, refresh, setRefresh }) => {
       ) : (
         <div className="posts">
           {posts?.map((p) => (
-            <Post post={p} key={p._id} setRefresh={setRefresh} />
+            <Post
+              post={p}
+              key={p._id}
+              setRefresh={setRefresh}
+              refresh={refresh}
+            />
           ))}
           <div className="pagination-container">
             <Pagination

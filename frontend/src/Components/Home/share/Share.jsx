@@ -1,15 +1,13 @@
 import "./share.scss";
-import Image from "../../../assets/img.png";
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../../Context/authContext";
-import { InputTextarea } from "primereact/inputtextarea";
-import { FloatLabel } from "primereact/floatlabel";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { InputNumber } from "primereact/inputnumber";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Toast } from "primereact/toast";
 
-const Share = ({ setRefresh }) => {
+const Share = ({ refresh, setRefresh }) => {
   const { currentUser } = useContext(AuthContext);
   const toast = useRef(null);
   const [loading, setLoading] = useState(false);
@@ -55,6 +53,7 @@ const Share = ({ setRefresh }) => {
     data.set("title", title);
     data.set("description", description);
     data.set("domain", domain.name);
+
     data.set("file", file[0]);
     data.set("budget", budget);
     const type = accountType === "Investisseur" ? "offre" : "post";
@@ -81,7 +80,7 @@ const Share = ({ setRefresh }) => {
           detail: "Post Created",
         });
       }
-      setRefresh(true);
+      setRefresh(!refresh);
     } catch (err) {
       toast.current.show({
         severity: "error",
@@ -95,86 +94,72 @@ const Share = ({ setRefresh }) => {
   };
 
   return (
-    <div className="share">
-      <div className="container">
-        <div className="top">
-          <div className="title">
-            <img
-              src={`http://localhost:8000/${currentUser?.profilePicture}`}
-              alt=""
-            />
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder={`What's on your mind ${currentUser?.username}?`}
-            />
-          </div>
-          <FloatLabel>
-            <InputTextarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              id="description"
-              rows={3}
-              cols={190}
-            />
-            <label htmlFor="description">Description</label>
-          </FloatLabel>
+    <div className="tweet">
+      <div className="tweet-header">
+        <img
+          className="profile-picture"
+          src={`http://localhost:8000/${currentUser?.profilePicture}`}
+          alt=""
+        />
+        <input
+          className="tweet-input"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder={`What's happening, ${currentUser?.username}?`}
+        />
+      </div>
+      <textarea
+        className="tweet-description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        placeholder="What's on your mind?"
+      />
+      <hr className="tweet-divider" />
+      <div className="tweet-footer">
+        <input
+          className="file-input"
+          name="file"
+          type="file"
+          id="file"
+          onChange={(e) => setFile(e.target.files)}
+          style={{ display: "none" }}
+        />
+        <label htmlFor="file" className="add-image-label">
+          <CloudUploadIcon />
+          <span>Upload Image</span>
+        </label>
+
+        {accountType === "Investisseur" && (
+          <Dropdown
+            value={domain}
+            onChange={(e) => setDomain(e.value)}
+            options={domains}
+            optionLabel="name"
+            placeholder="Select a Domain"
+            className="domain-dropdown"
+          />
+        )}
+
+        <div className="input-container">
+          <InputNumber
+            value={budget}
+            onValueChange={(e) => setBudget(e.value)}
+            showButtons
+            buttonLayout="horizontal"
+            step={100}
+            mode="currency"
+            currency="EUR"
+          />
         </div>
-        <hr />
-        <div className="bottom">
-          <div className="left">
-            <input
-              name="file"
-              type="file"
-              id="file"
-              onChange={(e) => setFile(e.target.files)}
-              style={{ display: "none" }}
-            />
-            <label htmlFor="file">
-              <div className="item">
-                <img src={Image} alt="" />
-                <span>Add Image</span>
-              </div>
-            </label>
-            {accountType === "Investisseur" && (
-              <>
-                <div className="item">
-                  <Dropdown
-                    value={domain}
-                    onChange={(e) => setDomain(e.value)}
-                    options={domains}
-                    optionLabel="name"
-                    placeholder="Select a Domain"
-                    className="w-full md:w-14rem"
-                  />
-                </div>
-                <InputNumber
-                  value={budget}
-                  onValueChange={(e) => setBudget(e.value)}
-                  showButtons
-                  buttonLayout="horizontal"
-                  step={100}
-                  decrementButtonClassName="p-button-danger"
-                  incrementButtonClassName="p-button-success"
-                  incrementButtonIcon="pi pi-plus"
-                  decrementButtonIcon="pi pi-minus"
-                  mode="currency"
-                  currency="EUR"
-                />
-              </>
-            )}
-          </div>
-          <div className="right">
-            <Toast ref={toast} />
-            <Button
-              label="Share"
-              icon="pi pi-check"
-              loading={loading}
-              onClick={handlePost}
-            />
-          </div>
-        </div>
+        <Toast ref={toast} />
+        <Button
+          className="share-button"
+          label="Publish"
+          icon="pi pi-check"
+          loading={loading}
+          onClick={handlePost}
+        />
       </div>
     </div>
   );

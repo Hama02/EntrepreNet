@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const AuthController = require("../Controllers/OfferController");
-const PostController = require("../Controllers/PostController");
 const AuthController = require("../Controllers/AuthController");
+const OfferController = require("../Controllers/OfferController");
 
-router.post("/acceptOffer", OfferController.acceptOffer);
-router.post("/suggestNegotiation", OfferController.suggestNegotiation);
+router.post(
+  "/acceptOffer/:id",
+  AuthController.protect,
+  OfferController.acceptOffer
+);
 
 module.exports = router;
