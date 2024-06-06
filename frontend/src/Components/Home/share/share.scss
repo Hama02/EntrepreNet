@@ -1,73 +1,142 @@
-.share {
-  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-  border-radius: 20px;
-  background-color: white;
-  color: black;
-  margin-bottom: 20px;
+.tweet {
+  width: 100%;
+  padding: 10px;
+  font-family: "roboto";
+  /*margin: 100px auto; /* Added margin for centering */
+  max-width: 2000px; /* Adjusted maximum width */
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out; /* Added transition for box-shadow */
+  margin-top: 85px;
+  margin-bottom: 30px;
+}
 
-  .container {
-    margin-top: 100px;
-    padding: 20px;
-    .top {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      .title {
-        display: flex;
-        align-items: center;
-        margin-bottom: 11px;
-        img {
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          object-fit: cover;
-        }
+.tweet:hover {
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2); /* Increased box-shadow on hover */
+}
 
-        input {
-          border: none;
-          outline: none;
-          padding: 20px 10px;
-          background-color: transparent;
-          width: 60%;
-          color: black;
-        }
-      }
-    }
+.tweet-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px; /* Added padding */
+  border-bottom: 1px solid #ccc; /* Added border bottom */
+}
 
-    hr {
-      margin: 20px 0px;
-      border: none;
-      height: 0.5px;
-      background-color: lightgray;
-    }
+.profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 25%;
+  margin-right: 10px; /* Increased margin */
+  /*border: 1px solid #1da1f2;  Added border */
+}
 
-    .bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      .left {
-        display: flex;
-        align-items: center;
-        gap: 20px;
+.tweet-input,
+.tweet-description {
+  width: calc(100% - 60px); /* Adjusted width for the input */
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 5px; /* Added padding */
+  /* Change text color */
+}
 
-        .item {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          cursor: pointer;
+.tweet-description {
+  min-height: 150px; /* Increased height for the description */
+  margin-top: 10px;
+  resize: none;
+}
+.tweet-input::placeholder,
+.tweet-description::placeholder {
+  color: #487354; /* Change placeholder text color to green */
+}
 
-          img {
-            height: 20px;
-          }
+.tweet-divider {
+  margin: 20px 0;
+  border: 0.5px solid #ccc;
+}
 
-          span {
-            font-size: 12px;
-            color: gray;
-          }
-        }
-      }
-    }
-  }
+.tweet-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /*padding-top: 10px; /* Added padding */
+}
+
+.file-input {
+  display: none;
+}
+
+.add-image-label {
+  cursor: pointer;
+  font-size: 16px;
+  color: #487354;
+  margin-right: 20px;
+  font-weight: bold;
+  padding: 10px 20px; /* Add padding to create a box */
+  border: 2px solid #487354; /* Add border to create a box */
+  border-radius: 5px; /* Add border-radius for rounded corners */
+  display: inline-flex; /* Display as flex to align items */
+  align-items: center; /* Align items vertically */
+}
+
+.add-image-label span {
+  font-family: "Roboto", sans-serif; /* Apply Roboto font to the label text */
+}
+
+.add-image-label svg {
+  margin-right: 5px; /* Add margin between icon and text */
+}
+
+.domain-dropdown {
+  width: 200px;
+  margin-bottom: 5px;
+}
+
+.domain-dropdown .p-dropdown-label {
+  background-color: #487354; /* Green background color */
+  font-weight: bold; /* Bold text */
+  color: #fff;
+  text-align: center;
+  /* White text color */
+}
+.domain-dropdown .p-dropdown-item {
+  font-weight: bold; /* Bold text */
+}
+
+.domain-dropdown .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  background-color: #487354; /* Green background color */
+  color: #fff; /* White text color */
+}
+
+.domain-dropdown .p-dropdown-panel .p-dropdown-items .p-dropdown-item:hover {
+  background-color: #3b5d45; /* Slightly darker green on hover */
+  color: #fff; /* White text color */
+}
+
+.input-container .p-inputnumber-button {
+  background-color: #3b5d45; /* Set background color to transparent */
+  border: none; /* Remove default border */
+  cursor: pointer; /* Set cursor to pointer on hover */
+  display: flex; /* Set display to flex for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.share-button,
+.tweet-button {
+  background-color: #487354;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.share-button:hover,
+.tweet-button:hover {
+  background-color: #487354;
 }

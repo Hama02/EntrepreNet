@@ -7,6 +7,7 @@ const userRouter = require("./Routes/UserRoutes");
 const commentRouter = require("./Routes/CommentsRoutes");
 const adminRouter = require("./Routes/AdminRoutes");
 const StatsRouter = require("./Routes/StatsRoutes");
+const offerRouter = require("./Routes/OfferRoutes");
 
 const app = express();
 const port = process.env.PORT;
@@ -28,6 +29,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/comments", commentRouter);
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/stats", StatsRouter);
+app.use("/api/v1/offers", offerRouter);
 
 app.listen(port, () => {
   console.log(`App running on port ${port}`);

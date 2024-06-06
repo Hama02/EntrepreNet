@@ -32,6 +32,11 @@ const PublicationSchema = mongoose.Schema(
       enum: ["offre", "post"],
       required: true,
     },
+    status: {
+      type: String,
+      enum: ["pending", "approved"],
+      default: "pending",
+    },
   },
   { timestamps: true }
 );
